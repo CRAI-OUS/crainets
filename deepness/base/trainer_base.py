@@ -79,6 +79,9 @@ class BaseTrainer:
 
         self.min_validation_loss = sys.float_info.max  # Minimum validation loss achieved, starting with the larges possible number
 
+    def config_reader(self):
+        """method that parses the optimizer and lr_scheduler from the json"""
+
     @abstractmethod
     def _train_epoch(self, epoch):
         """
