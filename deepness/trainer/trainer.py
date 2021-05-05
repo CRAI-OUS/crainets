@@ -65,11 +65,7 @@ class Trainer(BaseTrainer):
             losses['loss'].append(loss)
 
             if batch_idx % self.log_step == 0:
-                self.logger.info('Train {}: {} {} Loss: {:.6f}'.format(
-                    'Epoch' if not self.iterative else 'Iteration',
-                    epoch,
-                    self._progress(batch_idx),
-                    loss))
+                self.logger.info(f'Train {self.it}: {epoch} {self._progress(batch_idx)} Loss: {loss}')
 
             if batch_idx*self.batch_size >= self.images_pr_iteration and self.iterative:
                 break

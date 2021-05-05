@@ -219,8 +219,8 @@ class BaseTrainer:
         if device.type == 'cpu':
             self.logger.warning('current selected device is the cpu, you sure about this?')
 
-        self.logger.info('Selected training device is: {}:{}'.format(device.type, device.index))
-        self.logger.info('The available gpu devices are: {}'.format(list_ids))
+        self.logger.info(f'Selected training device is: {device.type}:{device.index}')
+        self.logger.info(f'The available gpu devices are: {list_ids}')
 
         return device, list_ids
 
@@ -260,7 +260,7 @@ class BaseTrainer:
 
         self.metric.write_to_file(path=statics_save_path)  # Save for every checkpoint in case of crash
         torch.save(state, filename)
-        self.logger.info("Saving checkpoint: {} ...".format(filename))
+        self.logger.info(f'Saving checkpoint: {filename} ...')
 
     def resume_checkpoint(self,
                           resume_model: Union[str, Path],
@@ -271,17 +271,15 @@ class BaseTrainer:
             resume_model (str, pathlib.Path): Checkpoint path, either absolute or relative
         """
         if not isinstance(resume_model, (str, Path)):
-            self.logger.warning('resume_model is not str or Path object but of type {}, '
-                                'aborting previous checkpoint loading'.format(type(resume_model)))
+            self.logger.warning('resume_model is not str or Path object but of type {type(resume_model)}, aborting previous checkpoint loading')
             return None
 
         if not Path(resume_model).is_file():
-            self.logger.warning('resume_model object does not exist, ensure that {} is correct, '
-                                'aborting previous checkpoint loading'.format(str(resume_model)))
+            self.logger.warning('resume_model object does not exist, ensure that {resume_model} is correct, aborting previous checkpoint loading')
             return None
 
         resume_model = str(resume_model)
-        self.logger.info("Loading checkpoint: {} ...".format(resume_model))
+        self.logger.info('Loading checkpoint: {resume_model} ...')
 
         try:
             checkpoint = torch.load(resume_model, map_location='cpu')
@@ -291,8 +289,7 @@ class BaseTrainer:
 
         # load architecture params from checkpoint.
         if checkpoint['config']['arch'] != self.config['arch']:
-            self.logger.warning('Warning: Different architecture from that given in the config, '
-                                'this may yield and exception while state_dict is loaded.')
+            self.logger.warning('Different architecture from that given in the config, this may yield and exception while state_dict is loaded.')
 
         self.model.load_state_dict(checkpoint['state_dict'])
 
@@ -300,24 +297,20 @@ class BaseTrainer:
 
         # load optimizer state from checkpoint only when optimizer type is not changed.
         if checkpoint['config']['optimizer']['type'] != self.config['optimizer']['type']:
-            self.logger.warning('Warning: Different optimizer from that given in the config, '
-                                'optimizer parameters are not resumed.')
+            self.logger.warning('Different optimizer from that given in the config, optimizer parameters are not resumed.')
         else:
             self.optimizer.load_state_dict(checkpoint['optimizer'])
 
         # load lr_scheduler state from checkpoint only when lr_scheduler type is not changed.
         if checkpoint['config']['lr_scheduler']['type'] != self.config['lr_scheduler']['type']:
-            self.logger.warning('Warning: Different scheduler from that given in the config, '
-                                 'scheduler parameters are not resumed.')
+            self.logger.warning('Different scheduler from that given in the config, scheduler parameters are not resumed.')
         elif self.lr_scheduler is None:
-            self.logger.warning('Warning: lr_scheduler is None, '
-                                'scheduler parameters are not resumed.')
+            self.logger.warning('lr_scheduler is None, scheduler parameters are not resumed.')
         else:
             if checkpoint['scheduler'] is not None:
                 self.lr_scheduler.load_state_dict(checkpoint['scheduler'])
             else:
-                self.logger.warning('Warning: lr_scheduler is saved as None, '
-                                    'scheduler parameters cannot be resumed.')
+                self.logger.warning('lr_scheduler is saved as None, scheduler parameters cannot be resumed.')
 
         if resume_metric is None:
             self.logger.info('No path were given for prior statistics, cannot resume.')
@@ -325,7 +318,7 @@ class BaseTrainer:
         else:
             self.metric.resume(resume_path=resume_metric)
 
-        self.logger.info('Checkpoint loaded. Resume training from epoch {}'.format(self.start_epoch))
+        self.logger.info('Checkpoint loaded. Resume training from epoch {self.start_epoch}')
 
         self.checkpoint_dir = Path(resume_metric).parent.parent  # Ensuring the same main folder after resuming
 
