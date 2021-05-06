@@ -1,8 +1,9 @@
 from typing import Callable, Dict, Union
 from collections import defaultdict
 import torch
-from base import BaseTrainer
-from essentials import MultiMetric, MultiLoss
+from deepness.base.trainer_base import BaseTrainer
+from deepness.essentials.multi_metric import MultiMetric
+from deepness.essentials.multi_loss import  MultiLoss
 
 
 class Trainer(BaseTrainer):

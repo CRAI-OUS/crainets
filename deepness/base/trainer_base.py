@@ -3,14 +3,15 @@ import time
 import sys
 from typing import Union, Dict
 from abc import abstractmethod
-from pathlib import Path
 from datetime import datetime
 import torch
 import py3nvml
 import numpy as np
 import json
-from config.logger import get_logger
-from essentials import MultiLoss, MultiMetric, MultiTracker
+from deepness.config.logger import get_logger
+from deepness.essentials.multi_loss import MultiLoss
+from deepness.essentials.multi_metric import MultiMetric
+from deepness.essentials.multi_tracker import MetricTracker
 
 
 class BaseTrainer:
@@ -28,7 +29,7 @@ class BaseTrainer:
                  loss_function: MultiLoss,
                  metric_ftns: Union[MultiMetric, Dict[str, callable]],
                  model_params: dict,
-                 config: Union[dict, (str, Path)],
+                 config: Union[dict, str],
                  seed: int = None,
                  device: str = None,
                  ):
@@ -87,7 +88,7 @@ class BaseTrainer:
 
         self.min_validation_loss = sys.float_info.max  # Minimum validation loss achieved, starting with the larges possible number
 
-		# defining the optimizer
+        # defining the optimizer
         optim = self.config['optimizer']
         optimizer = getattr(torch.optim, optim['type'])
         self.optimizer = optimizer(
@@ -98,9 +99,10 @@ class BaseTrainer:
                             )
 
         # defining the learning rate scheduler
-		lr_sched = self.config['lr_scheduler']
+        lr_sched = self.config['lr_scheduler']
         lr_scheduler = getattr(torch.optim.lr_scheduler, lr_sched['type'])
-        self.lr_scheduler = lr_scheduler(optimizer=self.optimizer,
+        self.lr_scheduler = lr_scheduler(
+                                    optimizer=self.optimizer,
                                     step_size=lr_sched['args']['step_size'],
                                     gamma=lr_sched['args']['gamma']
                                     )

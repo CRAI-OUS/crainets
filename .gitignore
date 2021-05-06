@@ -50,6 +50,12 @@ coverage.xml
 *.py,cover
 .hypothesis/
 .pytest_cache/
+*.pt
+*.csv
+*.json
+*.pkl
+*.nii
+*.dcm
 
 # Translations
 *.mo

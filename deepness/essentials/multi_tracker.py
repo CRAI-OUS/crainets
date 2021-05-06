@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 from typing import Union, Dict
-from config.logger import get_logger
+from deepness.config.logger import get_logger
 
 
 class MetricTracker(object):
@@ -15,7 +15,8 @@ class MetricTracker(object):
     CONFIG_KEY = 'config'
 
     def __init__(self,
-                 config: dict):
+                 config: dict
+                ):
         """
         Args:
             config (dict): The config dict which initiates the network
