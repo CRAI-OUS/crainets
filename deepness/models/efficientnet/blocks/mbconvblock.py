@@ -2,21 +2,19 @@
    They are built to mirror those in the official TensorFlow implementation.
 """
 from typing import Union, Tuple
-
-import torch
 from torch import nn
-from torch.nn import functional as F
 
-from .squeeze_excitation import SqueezeExcitation
+from deepness.models.efficientnet.blocks.squeeze_excitation import SqueezeExcitation
 
-from .swish import (
+from deepness.models.efficientnet.blocks.swish import (
     Swish,
     MemoryEfficientSwish,
     )
-from .utils import (
+
+from deepness.models.efficientnet.blocks.utils.conv_pad import get_same_padding_conv2d
+from deepness.models.efficientnet.blocks.utils.utils import (
     drop_connect,
     calculate_output_image_size,
-    get_same_padding_conv2d,
 )
 
 

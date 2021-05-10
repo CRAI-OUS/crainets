@@ -133,3 +133,8 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+*.gz
+*.tar.gz
+*.tar
+cifar-10-batches-py

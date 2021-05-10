@@ -28,7 +28,6 @@ class BaseTrainer:
                  model: torch.nn.Module,
                  loss_function: MultiLoss,
                  metric_ftns: Union[MultiMetric, Dict[str, callable]],
-                 model_params: dict,
                  config: Union[dict, str],
                  seed: int = None,
                  device: str = None,
@@ -41,8 +40,8 @@ class BaseTrainer:
             torch.manual_seed(seed)
 
         # Read the config file from local disk if it is a path otherwise just set to a class object
-        if not isinstance(config, (str, Path)) or not isinstance(config, dict):
-            raise TypeError(f'Input must be of type dict or str/pathlib.Path not {type(self.config)}')
+        if not isinstance(config, (str, Path, dict)):
+            raise TypeError(f'Input must be of type dict or str/pathlib.Path not {type(config)}')
         if isinstance(config, (str, Path)):
             with open(config, 'r') as inifile:
                 self.logger.info('loading config file from local disk')
@@ -92,7 +91,7 @@ class BaseTrainer:
         optim = self.config['optimizer']
         optimizer = getattr(torch.optim, optim['type'])
         self.optimizer = optimizer(
-                            model_params,
+                            model.parameters(),
                             lr=optim['args']['lr'],
                             weight_decay=optim['args']['weight_decay'],
                             amsgrad=optim['args']['amsgrad']

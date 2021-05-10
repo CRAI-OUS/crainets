@@ -1,3 +1,3 @@
-from .config import BlockArgs, GlobalParams, blocks
-from .efficientnet import EfficientNet
-from .efficientnet_autoencoder import EfficientUNet
+from deepness.models.efficientnet.config import BlockArgs, GlobalParams, blocks
+from deepness.models.efficientnet.efficientnet import EfficientNet
+# from deepness.models.efficientnet.efficientnet_autoencoder import EfficientUNet

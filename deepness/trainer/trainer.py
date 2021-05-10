@@ -3,7 +3,7 @@ from collections import defaultdict
 import torch
 from deepness.base.trainer_base import BaseTrainer
 from deepness.essentials.multi_metric import MultiMetric
-from deepness.essentials.multi_loss import  MultiLoss
+from deepness.essentials.multi_loss import MultiLoss
 
 
 class Trainer(BaseTrainer):
@@ -14,11 +14,9 @@ class Trainer(BaseTrainer):
                  model: torch.nn.Module,
                  loss_function: Union[MultiLoss, Callable],
                  metric_ftns: Union[MultiMetric, Dict[str, Callable]],
-                 optimizer: torch.optim,
                  config: dict,
                  data_loader: torch.utils.data.dataloader,
                  valid_data_loader: torch.utils.data.dataloader = None,
-                 lr_scheduler: torch.optim.lr_scheduler = None,
                  seed: int = None,
                  device: str = None,
                  log_step: int = None,
@@ -27,9 +25,7 @@ class Trainer(BaseTrainer):
         super().__init__(model=model,
                          loss_function=loss_function,
                          metric_ftns=metric_ftns,
-                         optimizer=optimizer,
                          config=config,
-                         lr_scheduler=lr_scheduler,
                          seed=seed,
                          device=device)
 
