@@ -54,6 +54,12 @@ class Trainer(BaseTrainer):
             self.optimizer.zero_grad()
 
             output = self.model(data)
+
+            if not output.dtype == target.dtype:
+                if batch_idx == 0:
+                    self.logger.warning(f'changing target type {target.dtype} to {output.dtype} for the rest of the training session')
+                target = target.to(output.dtype)
+
             loss = self.loss_function(output, target)
             loss.backward()
             self.optimizer.step()

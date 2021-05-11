@@ -29,7 +29,7 @@ TRAIN_CONFIG = {
                 }
             },
             "trainer": {
-                "epochs": 20,
+                "epochs": 5,
                 "iterative": True,
                 "iterations": 50,
                 "images_pr_iteration": 4000,

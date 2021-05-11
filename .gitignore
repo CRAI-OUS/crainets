@@ -138,3 +138,5 @@ dmypy.json
 *.tar.gz
 *.tar
 cifar-10-batches-py
+*.pth
+*.json

@@ -79,6 +79,7 @@ class BaseTrainer:
 
         self.iterative = bool(trainer_cfg['iterative'])
         self.iterations = int(trainer_cfg['iterations'])
+        self.it = 'epoch' if self.iterative else 'iteration'
 
         self.start_epoch = 1
 
@@ -161,13 +162,13 @@ class BaseTrainer:
             self.metric.validation_update(metrics=val_dict, epoch=epoch)
 
             self.logger.info(
-                """
+                f"""
                 Epoch/iteration {epoch} with validation completed in {epoch_end_time}
                 run mean statistics:
                 """
                 )
             if hasattr(self.lr_scheduler, 'get_last_lr'):
-                self.logger.info(f'Current learning rate: {self.lr_scheduler.get_last_lr}')
+                self.logger.info(f'Current learning rate: {self.lr_scheduler.get_last_lr()}')
             elif hasattr(self.lr_scheduler, 'get_lr'):
                 self.logger.info(f'Current learning rate: {self.lr_sheduler.get_lr()}')
 
@@ -250,10 +251,10 @@ class BaseTrainer:
 
         if best:  # Save best case with different naming convention
             save_path = Path(self.checkpoint_dir) / Path('best_validation')
-            filename = str(save_path / 'checkpoint-best.pth')
+            filename = str(save_path / 'modelfile-best.pth')
         else:
             save_path = Path(self.checkpoint_dir) / Path('epoch_' + str(epoch))
-            filename = str(save_path / 'checkpoint-epoch{}.pth'.format(epoch))
+            filename = str(save_path / 'modelfile-epoch{}.pth'.format(epoch))
 
         save_path.mkdir(parents=True, exist_ok=True)
 
