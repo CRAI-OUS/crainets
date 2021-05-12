@@ -15,7 +15,7 @@ def test_trainer():
 
     # specifiy the nec config
     model = EfficientNet.from_name(in_channels=3, model_name='efficientnet-b0')
-    loss = [(1, torch.nn.L1Loss()), (1, torch.nn.MSELoss())]
+    loss = [(1, torch.nn.CrossEntropyLoss())]
     loss = MultiLoss(losses=loss)
 
     metrics = MultiMetric(config.METRICS)

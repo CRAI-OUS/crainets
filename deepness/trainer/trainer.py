@@ -59,6 +59,7 @@ class Trainer(BaseTrainer):
                 if batch_idx == 0:
                     self.logger.warning(f'changing target type {target.dtype} to {output.dtype} for the rest of the training session')
                 target = target.to(output.dtype)
+            breakpoint()
 
             loss = self.loss_function(output, target)
             loss.backward()
