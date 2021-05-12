@@ -73,10 +73,11 @@ blocks = [
     ),
     ]
 
+#NOTE! breach of DRY principle
 VALID_MODELS = (
     'efficientnet-b0', 'efficientnet-b1', 'efficientnet-b2', 'efficientnet-b3',
     'efficientnet-b4', 'efficientnet-b5', 'efficientnet-b6', 'efficientnet-b7',
-    'efficientnet-b8', 'efficientnet-l2'
+    'efficientnet-b8', 'efficientnet-l2', 'efficientnet-c2', 'efficientnet-c16'
 )
 
 @dataclass
@@ -91,6 +92,7 @@ class GlobalParams:
     drop_connect_rate: float = 0.2
     depth_divisor: int = 8
     norm_method: str = 'instance_norm'  # Allowed. batch_norm, instance_norm, layer_norm
+    num_classes: int = None
 
 
 def efficientnet_params(model_name):
@@ -100,6 +102,7 @@ def efficientnet_params(model_name):
     Returns:
         params_dict[model_name]: A (width,depth,res,dropout) tuple.
     """
+    #TODO: make this more dynamic for the enduser by letting it shift with a efficientnet-config file
     params_dict = {
         'efficientnet-b0':
             {'width_coefficient': 1.0, 'depth_coefficient': 1.0, 'resolution': 224, 'drop_connect_rate': 0.2},
@@ -121,6 +124,10 @@ def efficientnet_params(model_name):
             {'width_coefficient': 2.2, 'depth_coefficient': 3.6, 'resolution': 672, 'drop_connect_rate': 0.5},
         'efficientnet-l2':
             {'width_coefficient': 4.3, 'depth_coefficient': 5.3, 'resolution': 800, 'drop_connect_rate': 0.5},
+        'efficientnet-c2':
+            {'width_coefficient': 4.3, 'depth_coefficient': 1.0, 'resolution': 224, 'drop_connect_rate': 0.2, 'num_classes': 2},
+        'efficientnet-c16':
+            {'width_coefficient': 4.3, 'depth_coefficient': 1.0, 'resolution': 224, 'drop_connect_rate': 0.2, 'num_classes': 16},
         }
 
     return params_dict[model_name]

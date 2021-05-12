@@ -59,7 +59,10 @@ class Trainer(BaseTrainer):
                 if batch_idx == 0:
                     self.logger.warning(f'changing target type {target.dtype} to {output.dtype} for the rest of the training session')
                 target = target.to(output.dtype)
-            breakpoint()
+
+            if len(output.shape) == 2:
+                self.logger.warning(f'changing target tensor type to long format')
+                target = target.long()
 
             loss = self.loss_function(output, target)
             loss.backward()

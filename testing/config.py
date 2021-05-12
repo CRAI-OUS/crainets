@@ -41,6 +41,5 @@ TRAIN_CONFIG = {
             }
 
 METRICS = {
-        'MSE': torch.nn.MSELoss(),
-        'L1': torch.nn.L1Loss()
+        'CrossEntropy': torch.nn.CrossEntropyLoss()
             }
