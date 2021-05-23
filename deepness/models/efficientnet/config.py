@@ -125,9 +125,9 @@ def efficientnet_params(model_name):
         'efficientnet-l2':
             {'width_coefficient': 4.3, 'depth_coefficient': 5.3, 'resolution': 800, 'drop_connect_rate': 0.5},
         'efficientnet-c2':
-            {'width_coefficient': 4.3, 'depth_coefficient': 1.0, 'resolution': 224, 'drop_connect_rate': 0.2, 'num_classes': 2},
+            {'width_coefficient': 1.0, 'depth_coefficient': 1.0, 'resolution': 224, 'drop_connect_rate': 0.2, 'num_classes': 2},
         'efficientnet-c16':
-            {'width_coefficient': 4.3, 'depth_coefficient': 1.0, 'resolution': 224, 'drop_connect_rate': 0.2, 'num_classes': 16},
+            {'width_coefficient': 1.0, 'depth_coefficient': 1.0, 'resolution': 224, 'drop_connect_rate': 0.2, 'num_classes': 16},
         }
 
     return params_dict[model_name]

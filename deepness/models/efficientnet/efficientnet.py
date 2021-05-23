@@ -1,4 +1,4 @@
-from typing import Union, List
+from typing import List
 from copy import deepcopy
 
 import torch
@@ -152,9 +152,9 @@ class EfficientNet(nn.Module):
         x = self.swish(self.norm1(self.conv_head(x)))
 
         if self.global_params.num_classes:
-            self._avg_pooling(x)
+            # x = self._avg_pooling(x)
             x = x.flatten(start_dim=1)
-            x = self._dropout (x)
+            x = self._dropout(x)
             x = self._fc(x)
 
         return x

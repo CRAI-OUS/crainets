@@ -14,17 +14,17 @@ test = torchvision.datasets.CIFAR10(
                     transform=torchvision.transforms.Compose([
                     torchvision.transforms.ToTensor()]))
 
-idx = torch.arange(1000)
-trainx = data_utils.Subset(train, idx)
-testx = data_utils.Subset(test, idx)
+# idx = torch.arange(10000)
+# trainx = data_utils.Subset(train, idx)
+# testx = data_utils.Subset(test, idx)
 
 train_loader = torch.utils.data.DataLoader(
-                        trainx,
+                        train,
                         batch_size=config.batch_size_train,
                         shuffle=True
                     )
 test_loader = torch.utils.data.DataLoader(
-                        testx,
+                        test,
                         batch_size=config.batch_size_test,
                         shuffle=True
                     )

@@ -8,8 +8,10 @@ from deepness.essentials.multi_metric import MultiMetric
 from collections.abc import Iterable
 import torch
 
+# #TODO include more tests for other types of efficient net
 
-def test_trainer():
+
+def test_efficientnet():
     assert isinstance(train_loader, Iterable), 'train_loader is not an iterable'
     assert isinstance(config.TRAIN_CONFIG, dict)
 

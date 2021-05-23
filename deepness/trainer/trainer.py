@@ -55,13 +55,9 @@ class Trainer(BaseTrainer):
 
             output = self.model(data)
 
-            if not output.dtype == target.dtype:
-                if batch_idx == 0:
-                    self.logger.warning(f'changing target type {target.dtype} to {output.dtype} for the rest of the training session')
-                target = target.to(output.dtype)
-
             if len(output.shape) == 2:
-                self.logger.warning(f'changing target tensor type to long format')
+                if batch_idx == 0:
+                    self.logger.warning(f'changing target tensor type to long format for the rest of the session')
                 target = target.long()
 
             loss = self.loss_function(output, target)
