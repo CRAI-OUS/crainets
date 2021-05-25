@@ -31,8 +31,8 @@ TRAIN_CONFIG = {
             "trainer": {
                 "epochs": 20,
                 "iterative": True,
-                "iterations": 10,
-                "images_pr_iteration": 100000,
+                "iterations": 1,
+                "images_pr_iteration": 1000,
                 "val_images_pr_iteration": 500,
                 "save_dir": CHCKPT,
                 "save_period": 500,
