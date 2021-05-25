@@ -1,3 +1,4 @@
+# External modules
 from pathlib import Path
 import time
 import sys
@@ -8,6 +9,8 @@ import torch
 import py3nvml
 import numpy as np
 import json
+
+# Internal modules
 from deepness.config.logger import get_logger
 from deepness.essentials.multi_loss import MultiLoss
 from deepness.essentials.multi_metric import MultiMetric
@@ -28,7 +31,7 @@ class BaseTrainer:
                  model: torch.nn.Module,
                  loss_function: MultiLoss,
                  metric_ftns: Union[MultiMetric, Dict[str, callable]],
-                 config: Union[dict, str],
+                 config: Union[dict, str, Path],
                  seed: int = None,
                  device: str = None,
                  ):
