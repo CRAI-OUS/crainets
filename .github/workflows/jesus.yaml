@@ -5,9 +5,11 @@ on:
     branches:
       - master
   pull_request:
+    branches:
+      - master
 
 jobs:
-  ci:
+  build:
     strategy:
       fail-fast: false
       matrix:
