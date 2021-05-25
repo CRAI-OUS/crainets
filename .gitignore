@@ -50,6 +50,12 @@ coverage.xml
 *.py,cover
 .hypothesis/
 .pytest_cache/
+*.pt
+*.csv
+*.json
+*.pkl
+*.nii
+*.dcm
 
 # Translations
 *.mo
@@ -127,3 +133,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+*.gz
+*.tar.gz
+*.tar
+cifar-10-batches-py
+*.pth

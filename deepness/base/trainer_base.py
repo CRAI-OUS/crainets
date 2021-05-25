@@ -1,15 +1,20 @@
+# External modules
+from pathlib import Path
 import time
 import sys
 from typing import Union, Dict
 from abc import abstractmethod
-from pathlib import Path
 from datetime import datetime
 import torch
 import py3nvml
 import numpy as np
-from config.logger import get_logger
-from essentials import MultiLoss, MultiMetric
-from ..metrics import MetricTracker
+import json
+
+# Internal modules
+from deepness.config.logger import get_logger
+from deepness.essentials.multi_loss import MultiLoss
+from deepness.essentials.multi_metric import MultiMetric
+from deepness.essentials.multi_tracker import MetricTracker
 
 
 class BaseTrainer:
@@ -26,19 +31,27 @@ class BaseTrainer:
                  model: torch.nn.Module,
                  loss_function: MultiLoss,
                  metric_ftns: Union[MultiMetric, Dict[str, callable]],
-                 optimizer: torch.optim,
-                 config: dict,
-                 lr_scheduler: torch.optim.lr_scheduler = None,
+                 config: Union[dict, str, Path],
                  seed: int = None,
                  device: str = None,
                  ):
+
+        self.logger = get_logger(name=__name__)
 
         # Reproducibility is a good thing
         if isinstance(seed, int):
             torch.manual_seed(seed)
 
-        self.config = config
-        self.logger = get_logger(name=__name__)
+        # Read the config file from local disk if it is a path otherwise just set to a class object
+        if not isinstance(config, (str, Path, dict)):
+            raise TypeError(f'Input must be of type dict or str/pathlib.Path not {type(config)}')
+        if isinstance(config, (str, Path)):
+            with open(config, 'r') as inifile:
+                self.logger.info('loading config file from local disk')
+                self.config = json.load(inifile)
+        else:
+            self.config = config
+
 
         # setup GPU device if available, move model into configured device
         if device is None:
@@ -47,8 +60,8 @@ class BaseTrainer:
             self.device = torch.device(device)
             device_ids = list()
 
+        # read in the model
         self.model = model.to(self.device)
-        self.lr_scheduler = lr_scheduler
 
         # TODO: Use DistributedDataParallel instead
         if len(device_ids) > 1 and config['n_gpu'] > 1:
@@ -63,14 +76,13 @@ class BaseTrainer:
             self.metrics_is_dict = False
             self.metric_ftns = metric_ftns.to(self.device)
 
-        self.optimizer = optimizer
-
         trainer_cfg = config['trainer']
         self.epochs = trainer_cfg['epochs']
         self.save_period = trainer_cfg['save_period']
 
         self.iterative = bool(trainer_cfg['iterative'])
         self.iterations = int(trainer_cfg['iterations'])
+        self.it = 'epoch' if self.iterative else 'iteration'
 
         self.start_epoch = 1
 
@@ -78,6 +90,25 @@ class BaseTrainer:
         self.metric = MetricTracker(config=config)
 
         self.min_validation_loss = sys.float_info.max  # Minimum validation loss achieved, starting with the larges possible number
+
+        # defining the optimizer
+        optim = self.config['optimizer']
+        optimizer = getattr(torch.optim, optim['type'])
+        self.optimizer = optimizer(
+                            model.parameters(),
+                            lr=optim['args']['lr'],
+                            weight_decay=optim['args']['weight_decay'],
+                            amsgrad=optim['args']['amsgrad']
+                            )
+
+        # defining the learning rate scheduler
+        lr_sched = self.config['lr_scheduler']
+        lr_scheduler = getattr(torch.optim.lr_scheduler, lr_sched['type'])
+        self.lr_scheduler = lr_scheduler(
+                                    optimizer=self.optimizer,
+                                    step_size=lr_sched['args']['step_size'],
+                                    gamma=lr_sched['args']['gamma']
+                                    )
 
     @abstractmethod
     def _train_epoch(self, epoch):
@@ -133,23 +164,26 @@ class BaseTrainer:
             self.metric.training_update(loss=loss_dict, epoch=epoch)
             self.metric.validation_update(metrics=val_dict, epoch=epoch)
 
-            self.logger.info('Epoch/iteration {} with validation completed in {}, '\
-                'run mean statistics:'.format(epoch, epoch_end_time))
-
+            self.logger.info(
+                f"""
+                Epoch/iteration {epoch} with validation completed in {epoch_end_time}
+                run mean statistics:
+                """
+                )
             if hasattr(self.lr_scheduler, 'get_last_lr'):
-                self.logger.info('Current learning rate: {}'.format(self.lr_scheduler.get_last_lr()))
+                self.logger.info(f'Current learning rate: {self.lr_scheduler.get_last_lr()}')
             elif hasattr(self.lr_scheduler, 'get_lr'):
-                self.logger.info('Current learning rate: {}'.format(self.lr_scheduler.get_lr()))
+                self.logger.info(f'Current learning rate: {self.lr_sheduler.get_lr()}')
 
             # print logged informations to the screen
             # training loss
             loss = np.array(loss_dict['loss'])
-            self.logger.info('Mean training loss: {}'.format(np.mean(loss)))
+            self.logger.info(f'Mean training loss: {np.mean(loss)}')
 
             if val_dict is not None:
                 for key, valid in val_dict.items():
                     valid = np.array(valid)
-                    self.logger.info('Mean validation {}: {}'.format(str(key), np.mean(valid)))
+                    self.logger.info(f'Mean validation {str(key)}: {np.mean(valid)}')
 
             if epoch % self.save_period == 0:
                 self.save_checkpoint(epoch, best=False)
@@ -159,7 +193,7 @@ class BaseTrainer:
 
             self.logger.info('-----------------------------------')
         self.save_checkpoint(epoch, best=False)
-        self.metric.write_to_file(path=self.checkpoint_dir / Path('statistics.json'))  # Save metrics at the end
+        self.metric.write_to_file(path=self.checkpoint_dir / Path('model_statistics.json'))  # Save metrics at the end
 
 
     def prepare_device(self, n_gpu_use: int):
@@ -170,11 +204,15 @@ class BaseTrainer:
         """
         n_gpu = torch.cuda.device_count()
         if n_gpu_use > 0 and n_gpu == 0:
-            self.logger.warning("Warning: There\'s no GPU available on this machine,"
-                                "training will be performed on CPU.")
+            self.logger.warning(
+                                """
+                                There's no GPU available on this machine,
+                                training will be performed on CPU.
+                                """)
             n_gpu_use = n_gpu
         if n_gpu_use > n_gpu:
-            self.logger.warning("Warning: The number of GPU\'s configured to use is {}, but only {} are available on this machine.".format(n_gpu_use, n_gpu))
+            self.logger.warning("""
+                            The number of GPU's configured to use is {n_gpu_use}, but only {n_gpu} are available on this machine""")
             n_gpu_use = n_gpu
 
         free_gpus = py3nvml.get_free_gpus()
@@ -186,8 +224,8 @@ class BaseTrainer:
         if device.type == 'cpu':
             self.logger.warning('current selected device is the cpu, you sure about this?')
 
-        self.logger.info('Selected training device is: {}:{}'.format(device.type, device.index))
-        self.logger.info('The available gpu devices are: {}'.format(list_ids))
+        self.logger.info(f'Selected training device is: {device.type}:{device.index}')
+        self.logger.info(f'The available gpu devices are: {list_ids}')
 
         return device, list_ids
 
@@ -216,10 +254,10 @@ class BaseTrainer:
 
         if best:  # Save best case with different naming convention
             save_path = Path(self.checkpoint_dir) / Path('best_validation')
-            filename = str(save_path / 'checkpoint-best.pth')
+            filename = str(save_path / 'modelfile-best.pth')
         else:
             save_path = Path(self.checkpoint_dir) / Path('epoch_' + str(epoch))
-            filename = str(save_path / 'checkpoint-epoch{}.pth'.format(epoch))
+            filename = str(save_path / 'modelfile-epoch{}.pth'.format(epoch))
 
         save_path.mkdir(parents=True, exist_ok=True)
 
@@ -227,7 +265,7 @@ class BaseTrainer:
 
         self.metric.write_to_file(path=statics_save_path)  # Save for every checkpoint in case of crash
         torch.save(state, filename)
-        self.logger.info("Saving checkpoint: {} ...".format(filename))
+        self.logger.info(f'Saving checkpoint: {filename} ...')
 
     def resume_checkpoint(self,
                           resume_model: Union[str, Path],
@@ -238,17 +276,15 @@ class BaseTrainer:
             resume_model (str, pathlib.Path): Checkpoint path, either absolute or relative
         """
         if not isinstance(resume_model, (str, Path)):
-            self.logger.warning('resume_model is not str or Path object but of type {}, '
-                                'aborting previous checkpoint loading'.format(type(resume_model)))
+            self.logger.warning('resume_model is not str or Path object but of type {type(resume_model)}, aborting previous checkpoint loading')
             return None
 
         if not Path(resume_model).is_file():
-            self.logger.warning('resume_model object does not exist, ensure that {} is correct, '
-                                'aborting previous checkpoint loading'.format(str(resume_model)))
+            self.logger.warning('resume_model object does not exist, ensure that {resume_model} is correct, aborting previous checkpoint loading')
             return None
 
         resume_model = str(resume_model)
-        self.logger.info("Loading checkpoint: {} ...".format(resume_model))
+        self.logger.info('Loading checkpoint: {resume_model} ...')
 
         try:
             checkpoint = torch.load(resume_model, map_location='cpu')
@@ -258,8 +294,7 @@ class BaseTrainer:
 
         # load architecture params from checkpoint.
         if checkpoint['config']['arch'] != self.config['arch']:
-            self.logger.warning('Warning: Different architecture from that given in the config, '
-                                'this may yield and exception while state_dict is loaded.')
+            self.logger.warning('Different architecture from that given in the config, this may yield and exception while state_dict is loaded.')
 
         self.model.load_state_dict(checkpoint['state_dict'])
 
@@ -267,24 +302,20 @@ class BaseTrainer:
 
         # load optimizer state from checkpoint only when optimizer type is not changed.
         if checkpoint['config']['optimizer']['type'] != self.config['optimizer']['type']:
-            self.logger.warning('Warning: Different optimizer from that given in the config, '
-                                'optimizer parameters are not resumed.')
+            self.logger.warning('Different optimizer from that given in the config, optimizer parameters are not resumed.')
         else:
             self.optimizer.load_state_dict(checkpoint['optimizer'])
 
         # load lr_scheduler state from checkpoint only when lr_scheduler type is not changed.
         if checkpoint['config']['lr_scheduler']['type'] != self.config['lr_scheduler']['type']:
-            self.logger.warning('Warning: Different scheduler from that given in the config, '
-                                 'scheduler parameters are not resumed.')
+            self.logger.warning('Different scheduler from that given in the config, scheduler parameters are not resumed.')
         elif self.lr_scheduler is None:
-            self.logger.warning('Warning: lr_scheduler is None, '
-                                'scheduler parameters are not resumed.')
+            self.logger.warning('lr_scheduler is None, scheduler parameters are not resumed.')
         else:
             if checkpoint['scheduler'] is not None:
                 self.lr_scheduler.load_state_dict(checkpoint['scheduler'])
             else:
-                self.logger.warning('Warning: lr_scheduler is saved as None, '
-                                    'scheduler parameters cannot be resumed.')
+                self.logger.warning('lr_scheduler is saved as None, scheduler parameters cannot be resumed.')
 
         if resume_metric is None:
             self.logger.info('No path were given for prior statistics, cannot resume.')
@@ -292,7 +323,7 @@ class BaseTrainer:
         else:
             self.metric.resume(resume_path=resume_metric)
 
-        self.logger.info('Checkpoint loaded. Resume training from epoch {}'.format(self.start_epoch))
+        self.logger.info('Checkpoint loaded. Resume training from epoch {self.start_epoch}')
 
         self.checkpoint_dir = Path(resume_metric).parent.parent  # Ensuring the same main folder after resuming
 

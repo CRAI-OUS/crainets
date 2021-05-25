@@ -3,8 +3,9 @@ from typing import Optional, Callable, Union, Tuple
 import torch
 import torch.nn as nn
 
-from .utils import Conv2dDynamicSamePadding
-from .squeeze_excitation import SqueezeExcitation
+from deepness.models.efficientnet.blocks.utils.conv_pad import Conv2dDynamicSamePadding
+from deepness.models.efficientnet.blocks.squeeze_excitation import SqueezeExcitation
+
 
 class BasicBlock(nn.Module):
     """

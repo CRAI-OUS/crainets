@@ -6,9 +6,14 @@ authors = ["JonNesvold <jon.nesvold@pm.me>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
-pytorch = "^1.0.2"
+torch = "^1.8.1"
+colorlog = "^5.0.1"
+py3nvml = "^0.2.6"
+numpy = "^1.20.2"
+pytest = "^6.2.4"
 
 [tool.poetry.dev-dependencies]
+torchvision = "^0.9.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

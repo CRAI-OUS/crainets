@@ -1,25 +1,25 @@
-from typing import Union, List
+from typing import List
 from copy import deepcopy
 
 import torch
 from torch import nn
 from torch.nn import functional as F
 
-from ..blocks.utils import get_same_padding_conv2d
+from deepness.models.efficientnet.blocks.utils.conv_pad import get_same_padding_conv2d
 
-from .utils import (
+from deepness.models.efficientnet.utils import (
     round_filters,
     round_repeats,
     calculate_output_image_size,
 )
 
-from ..blocks import (
+from deepness.models.efficientnet.blocks import (
     MBConvBlock,
     Swish,
     MemoryEfficientSwish,
     )
 
-from .config import (
+from deepness.models.efficientnet.config import (
     BlockArgs,
     GlobalParams,
     VALID_MODELS,
@@ -123,6 +123,11 @@ class EfficientNet(nn.Module):
         self.conv_head = Conv2d(in_channels, out_channels, kernel_size=1, bias=False)
         self.norm1 = self._norm_method(output=out_channels)
 
+        if self.global_params.num_classes:
+            self._avg_pooling = nn.AdaptiveAvgPool2d(1)
+            self._dropout = nn.Dropout(self.global_params.dropout_rate)
+            self._fc = nn.Linear(out_channels, self.global_params.num_classes)
+
         self.swish = MemoryEfficientSwish()
 
     def forward(self, inputs):
@@ -145,6 +150,13 @@ class EfficientNet(nn.Module):
 
         # Head
         x = self.swish(self.norm1(self.conv_head(x)))
+
+        if self.global_params.num_classes:
+            # x = self._avg_pooling(x)
+            x = x.flatten(start_dim=1)
+            x = self._dropout(x)
+            x = self._fc(x)
+
         return x
 
     def set_swish(self, memory_efficient=True):
@@ -179,11 +191,12 @@ class EfficientNet(nn.Module):
     def from_name(cls, model_name: str, in_channels: int = 3):
         """
         """
-        assert model_name in VALID_MODELS, 'the model: {} not found'.format(model_name)
+        assert model_name in VALID_MODELS, f'the model: {model_name} not found'
 
         args_dict = efficientnet_params(model_name)
         blocks_args = deepcopy(blocks)
         global_params = GlobalParams()
+        # #TODO: make this more user friendly and customizable
         for key, value in args_dict.items():
             setattr(global_params, key, value)
 
