@@ -1,6 +1,6 @@
 name: Jesus 
 
-on: [pull_request]
+on:
   push:
     branches:
       - master
