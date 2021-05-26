@@ -5,21 +5,21 @@ import torch
 from torch import nn
 from torch.nn import functional as F
 
-from deepness.models.efficientnet.blocks.utils.conv_pad import get_same_padding_conv2d
+from jesus.models.efficientnet.blocks.utils.conv_pad import get_same_padding_conv2d
 
-from deepness.models.efficientnet.utils import (
+from jesus.models.efficientnet.utils import (
     round_filters,
     round_repeats,
     calculate_output_image_size,
 )
 
-from deepness.models.efficientnet.blocks import (
+from jesus.models.efficientnet.blocks import (
     MBConvBlock,
     Swish,
     MemoryEfficientSwish,
     )
 
-from deepness.models.efficientnet.config import (
+from jesus.models.efficientnet.config import (
     BlockArgs,
     GlobalParams,
     VALID_MODELS,

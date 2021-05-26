@@ -1,9 +1,9 @@
 from testing.data_loader import train_loader, test_loader
 from testing import config
-from deepness.trainer.trainer import Trainer
-from deepness.models.efficientnet import EfficientNet
-from deepness.essentials.multi_loss import MultiLoss
-from deepness.essentials.multi_metric import MultiMetric
+from jesus.trainer.trainer import Trainer
+from jesus.models.efficientnet import EfficientNet
+from jesus.essentials.multi_loss import MultiLoss
+from jesus.essentials.multi_metric import MultiMetric
 
 from collections.abc import Iterable
 import torch
