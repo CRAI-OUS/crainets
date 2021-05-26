@@ -11,10 +11,10 @@ import numpy as np
 import json
 
 # Internal modules
-from deepness.config.logger import get_logger
-from deepness.essentials.multi_loss import MultiLoss
-from deepness.essentials.multi_metric import MultiMetric
-from deepness.essentials.multi_tracker import MetricTracker
+from jesus.config.logger import get_logger
+from jesus.essentials.multi_loss import MultiLoss
+from jesus.essentials.multi_metric import MultiMetric
+from jesus.essentials.multi_tracker import MetricTracker
 
 
 class BaseTrainer:

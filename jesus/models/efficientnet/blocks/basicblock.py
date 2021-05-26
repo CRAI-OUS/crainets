@@ -3,8 +3,8 @@ from typing import Optional, Callable, Union, Tuple
 import torch
 import torch.nn as nn
 
-from deepness.models.efficientnet.blocks.utils.conv_pad import Conv2dDynamicSamePadding
-from deepness.models.efficientnet.blocks.squeeze_excitation import SqueezeExcitation
+from jesus.models.efficientnet.blocks.utils.conv_pad import Conv2dDynamicSamePadding
+from jesus.models.efficientnet.blocks.squeeze_excitation import SqueezeExcitation
 
 
 class BasicBlock(nn.Module):

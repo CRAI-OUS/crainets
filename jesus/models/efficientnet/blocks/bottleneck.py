@@ -3,8 +3,8 @@ from typing import Optional, Callable, Union, Tuple
 import torch
 import torch.nn as nn
 
-from deepness.models.efficientnet.blocks.utils import get_same_padding_conv2d, get_same_padding_maxPool2d
-from deepness.models.efficientnet.blocks.squeeze_excitation import SqueezeExcitation
+from jesus.models.efficientnet.blocks.utils import get_same_padding_conv2d, get_same_padding_maxPool2d
+from jesus.models.efficientnet.blocks.squeeze_excitation import SqueezeExcitation
 
 
 class Bottleneck(nn.Module):

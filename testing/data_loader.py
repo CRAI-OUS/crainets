@@ -1,7 +1,6 @@
 import torch
 import torchvision
 import testing.config as config
-import torch.utils.data as data_utils
 
 train = torchvision.datasets.CIFAR10(
                     config.TESTING, train=True, download=True,
