@@ -32,11 +32,11 @@ TRAIN_CONFIG = {
                 "epochs": 20,
                 "iterative": True,
                 "iterations": 1,
-                "images_pr_iteration": 1000,
-                "val_images_pr_iteration": 500,
+                "images_pr_iteration": 500,
+                "val_images_pr_iteration": 10,
                 "save_dir": CHCKPT,
-                "save_period": 500,
-                "early_stop": 10
+                "save_period": 5,
+                "early_stop": 1
                 }
             }
 
