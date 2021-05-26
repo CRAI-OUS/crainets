@@ -1,9 +1,9 @@
 from typing import Callable, Dict, Union
 from collections import defaultdict
 import torch
-from jesus.base.trainer_base import BaseTrainer
-from jesus.essentials.multi_metric import MultiMetric
-from jesus.essentials.multi_loss import MultiLoss
+from babyjesus.base.trainer_base import BaseTrainer
+from babyjesus.essentials.multi_metric import MultiMetric
+from babyjesus.essentials.multi_loss import MultiLoss
 
 
 class Trainer(BaseTrainer):

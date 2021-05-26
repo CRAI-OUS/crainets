@@ -11,10 +11,10 @@ import numpy as np
 import json
 
 # Internal modules
-from jesus.config.logger import get_logger
-from jesus.essentials.multi_loss import MultiLoss
-from jesus.essentials.multi_metric import MultiMetric
-from jesus.essentials.multi_tracker import MetricTracker
+from babyjesus.config.logger import get_logger
+from babyjesus.essentials.multi_loss import MultiLoss
+from babyjesus.essentials.multi_metric import MultiMetric
+from babyjesus.essentials.multi_tracker import MetricTracker
 
 
 class BaseTrainer:

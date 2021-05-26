@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 from typing import Union, Dict
-from jesus.config.logger import get_logger
+from babyjesus.config.logger import get_logger
 
 
 class MetricTracker(object):

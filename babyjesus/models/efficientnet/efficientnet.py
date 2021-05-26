@@ -5,21 +5,21 @@ import torch
 from torch import nn
 from torch.nn import functional as F
 
-from jesus.models.efficientnet.blocks.utils.conv_pad import get_same_padding_conv2d
+from babyjesus.models.efficientnet.blocks.utils.conv_pad import get_same_padding_conv2d
 
-from jesus.models.efficientnet.utils import (
+from babyjesus.models.efficientnet.utils import (
     round_filters,
     round_repeats,
     calculate_output_image_size,
 )
 
-from jesus.models.efficientnet.blocks import (
+from babyjesus.models.efficientnet.blocks import (
     MBConvBlock,
     Swish,
     MemoryEfficientSwish,
     )
 
-from jesus.models.efficientnet.config import (
+from babyjesus.models.efficientnet.config import (
     BlockArgs,
     GlobalParams,
     VALID_MODELS,

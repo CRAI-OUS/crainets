@@ -4,15 +4,15 @@
 from typing import Union, Tuple
 from torch import nn
 
-from jesus.models.efficientnet.blocks.squeeze_excitation import SqueezeExcitation
+from babyjesus.models.efficientnet.blocks.squeeze_excitation import SqueezeExcitation
 
-from jesus.models.efficientnet.blocks.swish import (
+from babyjesus.models.efficientnet.blocks.swish import (
     Swish,
     MemoryEfficientSwish,
     )
 
-from jesus.models.efficientnet.blocks.utils.conv_pad import get_same_padding_conv2d
-from jesus.models.efficientnet.blocks.utils.utils import (
+from babyjesus.models.efficientnet.blocks.utils.conv_pad import get_same_padding_conv2d
+from babyjesus.models.efficientnet.blocks.utils.utils import (
     drop_connect,
     calculate_output_image_size,
 )

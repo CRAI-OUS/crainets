@@ -4,7 +4,7 @@ Squeeze and Excitation block
 import torch
 from torch import nn
 
-from jesus.models.efficientnet.blocks.swish import (
+from babyjesus.models.efficientnet.blocks.swish import (
     Swish,
     MemoryEfficientSwish,
     )
