@@ -1,22 +1,20 @@
-# External standard modules
+# External modules
+from pathlib import Path
 import time
 import sys
-import json
-from pathlib import Path
 from typing import Union, Dict
 from abc import abstractmethod
 from datetime import datetime
-
-# Third party modules
+import torch
 import py3nvml
 import numpy as np
-import torch
+import json
 
 # Internal modules
-from crainet.config.logger import get_logger
-from crainet.essentials.multi_loss import MultiLoss
-from crainet.essentials.multi_metric import MultiMetric
-from crainet.essentials.multi_tracker import MetricTracker
+from babyjesus.config.logger import get_logger
+from babyjesus.essentials.multi_loss import MultiLoss
+from babyjesus.essentials.multi_metric import MultiMetric
+from babyjesus.essentials.multi_tracker import MetricTracker
 
 
 class BaseTrainer:
@@ -157,12 +155,10 @@ class BaseTrainer:
             val_dict = self._valid_epoch(epoch)
             epoch_end_time = time.time() - epoch_start_time
 
+            val_loss = np.mean(np.array(val_dict['loss']))
 
             if self.lr_scheduler is not None:
                 self.lr_scheduler.step()
-
-            loss_dict['loss'] = np.mean(np.array(loss_dict['loss']))
-            val_dict = np.mean(np.array(val_dict['loss']))
 
             # save logged information regarding this epoch/iteration
             self.metric.training_update(loss=loss_dict, epoch=epoch)
@@ -182,7 +178,7 @@ class BaseTrainer:
             # print logged informations to the screen
             # training loss
             loss = np.array(loss_dict['loss'])
-            self.logger.info(f'Mean training loss: {loss}')
+            self.logger.info(f'Mean training loss: {np.mean(loss)}')
 
             if val_dict is not None:
                 for key, valid in val_dict.items():
@@ -191,8 +187,8 @@ class BaseTrainer:
 
             if epoch % self.save_period == 0:
                 self.save_checkpoint(epoch, best=False)
-            if val_dict['loss'] < self.min_validation_loss:
-                self.min_validation_loss = val_dict['loss']
+            if val_loss < self.min_validation_loss:
+                self.min_validation_loss = val_loss
                 self.save_checkpoint(epoch, best=True)
 
             self.logger.info('-----------------------------------')
@@ -258,10 +254,10 @@ class BaseTrainer:
 
         if best:  # Save best case with different naming convention
             save_path = Path(self.checkpoint_dir) / Path('best_validation')
-            filename = str(save_path / 'checkpoint-best.pth')
+            filename = str(save_path / 'modelfile-best.pth')
         else:
             save_path = Path(self.checkpoint_dir) / Path('epoch_' + str(epoch))
-            filename = str(save_path / 'checkpoint-epoch{}.pth'.format(epoch))
+            filename = str(save_path / 'modelfile-epoch{}.pth'.format(epoch))
 
         save_path.mkdir(parents=True, exist_ok=True)
 

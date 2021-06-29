@@ -1,15 +1,18 @@
-# External standard modules
+"""model.py - Model and module class for EfficientNet.
+   They are built to mirror those in the official TensorFlow implementation.
+"""
 from typing import Union, Tuple
-
-# External third party modules
-import torch
 from torch import nn
 
-# Internal modules
-from .squeeze_excitation import SqueezeExcitation
+from babyjesus.models.efficientnet.blocks.squeeze_excitation import SqueezeExcitation
 
-from .utils.conv_pad import get_same_padding_conv2d
-from .utils.utils import (
+from babyjesus.models.efficientnet.blocks.swish import (
+    Swish,
+    MemoryEfficientSwish,
+    )
+
+from babyjesus.models.efficientnet.blocks.utils.conv_pad import get_same_padding_conv2d
+from babyjesus.models.efficientnet.blocks.utils.utils import (
     drop_connect,
     calculate_output_image_size,
 )
@@ -35,7 +38,7 @@ class MBConvBlock(nn.Module):
                  se_ratio: float = 0.25,
                  expand_ratio: Union[int, float] = 1.,
                  id_skip: bool = True,
-                 norm: Union[str] = 'batch_norm',
+                 norm_method: Union[str] = 'batch_norm',
                  batch_norm_momentum: float = 0.99,
                  batch_norm_epsilon: float = 0.001,
                  image_size: Union[int, Tuple[int]] = None,
@@ -43,6 +46,7 @@ class MBConvBlock(nn.Module):
         super().__init__()
         self.batch_norm_momentum = 1 - batch_norm_momentum # pytorch's difference from tensorflow
         self.batch_norm_epsilon = batch_norm_epsilon
+        self.norm_method = norm_method
 
         self.has_se = (se_ratio is not None) and (0 < se_ratio <= 1)
         self.id_skip = id_skip  # whether to use skip connection and drop connect
@@ -61,11 +65,10 @@ class MBConvBlock(nn.Module):
                                       kernel_size=1,
                                       bias=False,
                                       )
-            self.norm0 = self._norm(norm=norm, output=self.mid_channels)
+            self.norm0 = self._norm_method(output=self.mid_channels)
 
         # Depthwise convolution phase
         Conv2d = get_same_padding_conv2d(image_size=image_size)
-
         self.depthwise_conv = Conv2d(
             in_channels=self.mid_channels,
             out_channels=self.mid_channels,
@@ -75,7 +78,7 @@ class MBConvBlock(nn.Module):
             bias=False,
             )
 
-        self.norm1 = self._norm(norm=norm, output=self.mid_channels)
+        self.norm1 = self._norm_method(output=self.mid_channels)
 
         image_size = calculate_output_image_size(image_size, stride)
         # Squeeze and Excitation layer, if desired
@@ -91,8 +94,8 @@ class MBConvBlock(nn.Module):
                                    kernel_size=1,
                                    bias=False,
                                    )
-        self.norm2 = self._norm(norm=norm, output=out_channels)
-        self.silu = torch.nn.SiLU()
+        self.norm2 = self._norm_method(output=out_channels)
+        self.swish = MemoryEfficientSwish()
 
     def forward(self, inputs, drop_connect_rate=None):
         """MBConvBlock's forward function.
@@ -108,11 +111,11 @@ class MBConvBlock(nn.Module):
         if self.expand_ratio != 1:
             x = self.expand_conv(inputs)
             x = self.norm0(x)
-            x = self.silu(x)
+            x = self.swish(x)
 
         x = self.depthwise_conv(x)
         x = self.norm1(x)
-        x = self.silu(x)
+        x = self.swish(x)
 
         # Squeeze and Excitation
         if self.has_se:
@@ -130,22 +133,28 @@ class MBConvBlock(nn.Module):
             x = x + inputs  # skip connection
         return x
 
+    def set_swish(self, memory_efficient=True):
+        """Sets swish function as memory efficient (for training) or standard (for export).
+        Args:
+            memory_efficient (bool): Whether to use memory-efficient version of swish.
+        """
+        self.swish = MemoryEfficientSwish() if memory_efficient else Swish()
 
-    def _norm(self, norm: str, output: int):
-        if norm == "batch_norm":
-            return nn.BatchNorm2d(
+    def _norm_method(self, output: int):
+        norms = {
+            'batch_norm': nn.BatchNorm2d(
                 num_features=output,
                 momentum=self.batch_norm_momentum,
                 eps=self.batch_norm_epsilon,
-                )
-        elif norm == "instance_norm":
-            return nn.InstanceNorm2d(
+                ),
+            'instance_norm': nn.InstanceNorm2d(
                 num_features=output,
                 momentum=self.batch_norm_momentum,
-                eps=self.batch_norm_epsilon
-                )
-        else:
-            return nn.LayerNorm(
-                normalized_shape=1,
                 eps=self.batch_norm_epsilon,
-                )
+                ),
+            'layer_norm': nn.LayerNorm(
+                normalized_shape=output,
+                eps=self.batch_norm_epsilon,
+                ),
+            }
+        return norms[self.norm_method]

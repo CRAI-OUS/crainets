@@ -1,13 +1,10 @@
-# External standard modules
-from typing import Optional, Callable
+from typing import Optional, Callable, Union, Tuple
 
-# External third party modules
 import torch
 import torch.nn as nn
 
-# Internal modules
-from .utils import get_same_padding_conv2d
-from .squeeze_excitation import SqueezeExcitation
+from babyjesus.models.efficientnet.blocks.utils import get_same_padding_conv2d, get_same_padding_maxPool2d
+from babyjesus.models.efficientnet.blocks.squeeze_excitation import SqueezeExcitation
 
 
 class Bottleneck(nn.Module):
