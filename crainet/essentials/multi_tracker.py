@@ -1,7 +1,10 @@
+# Standard modules
 import json
 from pathlib import Path
 from typing import Union, Dict
-from babyjesus.config.logger import get_logger
+
+# Internal modules
+from crainet.config.logger import get_logger
 
 
 class MetricTracker(object):

@@ -1,9 +1,14 @@
+# Standard modules
 from typing import Callable, Dict, Union
 from collections import defaultdict
+
+# Third party modules
 import torch
-from babyjesus.base.trainer_base import BaseTrainer
-from babyjesus.essentials.multi_metric import MultiMetric
-from babyjesus.essentials.multi_loss import MultiLoss
+
+# Internal modules
+from crainet.base.trainer_base import BaseTrainer
+from crainet.essentials.multi_metric import MultiMetric
+from crainet.essentials.multi_loss import MultiLoss
 
 
 class Trainer(BaseTrainer):

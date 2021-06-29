@@ -1,4 +1,7 @@
+# Standard modules
 from typing import Optional
+
+# Third party modules
 import numpy as np
 from skimage.metrics import peak_signal_noise_ratio, structural_similarity
 

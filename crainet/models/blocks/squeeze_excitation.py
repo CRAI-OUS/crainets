@@ -4,11 +4,6 @@ Squeeze and Excitation block
 import torch
 from torch import nn
 
-from babyjesus.models.efficientnet.blocks.swish import (
-    Swish,
-    MemoryEfficientSwish,
-    )
-
 
 class SqueezeExcitation(nn.Module):
     """
@@ -33,7 +28,7 @@ class SqueezeExcitation(nn.Module):
                                  out_channels=channels,
                                  kernel_size=1,
                                  bias=True)
-        self.swish = MemoryEfficientSwish()
+        self.silu = torch.nn.SiLU()
         # Could do this using linear layer aswell, but than we need to .view in forward
         # self.linear_1 = nn.Linear(in_features=channels, out_features=squeezed_channels, bias=True)
         # self.linear_2 = nn.Linear(in_features=squeezed_channels, out_features=channels, bias=True)
@@ -41,14 +36,7 @@ class SqueezeExcitation(nn.Module):
     def forward(self, inputs):
         x = self.avg_pool(inputs)
         x = self.layer_1(x)
-        x = self.swish(x)
+        x = self.silu(x)
         x = self.layer_2(x)
         x = torch.sigmoid(x) * inputs
         return x
-
-    def set_swish(self, memory_efficient=True):
-        """Sets swish function as memory efficient (for training) or standard (for export).
-        Args:
-            memory_efficient (bool): Whether to use memory-efficient version of swish.
-        """
-        self.swish = MemoryEfficientSwish() if memory_efficient else Swish()

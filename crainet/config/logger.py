@@ -1,7 +1,7 @@
 import logging
-from colorlog import ColoredFormatter
 import os
 from pathlib import Path
+from colorlog import ColoredFormatter
 
 # TODO: inlcude comments
 
