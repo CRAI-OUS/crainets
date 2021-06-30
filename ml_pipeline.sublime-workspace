@@ -529,7 +529,7 @@
 					"left_delete",
 					null,
 					"AQAAAOUDAAAAAAAABwUAAAAAAAAAAAAA",
-					"AQAAAAAAAAABAAAA5QMAAAAAAADlAwAAAAAAAAAAAAAAAPC/"
+					"BAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8L8AAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADwvwAAAAABAAAA5QMAAAAAAADlAwAAAAAAAAAAAAAAAPC/"
 				]
 			],
 			"settings":
@@ -548,7 +548,7 @@
 						"characters": "torch."
 					},
 					"BwAAADsEAAAAAAAAPAQAAAAAAAAAAAAAPAQAAAAAAAA8BAAAAAAAABQAAABNZW1vcnlFZmZpY2llbnRTd2lzaDwEAAAAAAAAPQQAAAAAAAAAAAAAPQQAAAAAAAA+BAAAAAAAAAAAAAA+BAAAAAAAAD8EAAAAAAAAAAAAAD8EAAAAAAAAQAQAAAAAAAAAAAAAQAQAAAAAAABBBAAAAAAAAAAAAAA",
-					"AQAAAAAAAAABAAAAOwQAAAAAAABPBAAAAAAAAAAAAAAAAPC/"
+					"BAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8L8AAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADwvwAAAAABAAAAOwQAAAAAAABPBAAAAAAAAAAAAAAAAPC/"
 				],
 				[
 					16,
@@ -558,7 +558,7 @@
 						"characters": "nn.SiLU"
 					},
 					"BwAAAEEEAAAAAAAAQgQAAAAAAAAAAAAAQgQAAAAAAABDBAAAAAAAAAAAAABDBAAAAAAAAEQEAAAAAAAAAAAAAEQEAAAAAAAARQQAAAAAAAAAAAAARQQAAAAAAABGBAAAAAAAAAAAAABGBAAAAAAAAEcEAAAAAAAAAAAAAEcEAAAAAAAASAQAAAAAAAAAAAAA",
-					"AQAAAAAAAAABAAAAQQQAAAAAAABBBAAAAAAAAAAAAAAAAPC/"
+					"BAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8L8AAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADwvwAAAAABAAAAQQQAAAAAAABBBAAAAAAAAAAAAAAAAPC/"
 				],
 				[
 					33,
@@ -566,7 +566,7 @@
 					"left_delete",
 					null,
 					"AQAAAEgAAAAAAAAASAAAAAAAAABlAAAAZnJvbSBiYWJ5amVzdXMubW9kZWxzLmVmZmljaWVudG5ldC5ibG9ja3Muc3dpc2ggaW1wb3J0ICgKICAgIFN3aXNoLAogICAgTWVtb3J5RWZmaWNpZW50U3dpc2gsCiAgICApCgo",
-					"AQAAAAAAAAABAAAArQAAAAAAAABIAAAAAAAAAAAAAAAAAPC/"
+					"BAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8L8AAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADwvwAAAAABAAAArQAAAAAAAABIAAAAAAAAAAAAAAAAAPC/"
 				],
 				[
 					35,
@@ -574,7 +574,7 @@
 					"left_delete",
 					null,
 					"AQAAAEcAAAAAAAAARwAAAAAAAAABAAAACg",
-					"AQAAAAAAAAABAAAASAAAAAAAAABIAAAAAAAAAAAAAAAAAPC/"
+					"BAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8L8AAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADwvwAAAAABAAAASAAAAAAAAABIAAAAAAAAAAAAAAAAAPC/"
 				],
 				[
 					37,
@@ -584,7 +584,7 @@
 						"characters": "\n"
 					},
 					"AQAAAEcAAAAAAAAASAAAAAAAAAAAAAAA",
-					"AQAAAAAAAAABAAAARwAAAAAAAABHAAAAAAAAAAAAAAAAAPC/"
+					"BAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8L8AAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADwvwAAAAABAAAARwAAAAAAAABHAAAAAAAAAAAAAAAAAPC/"
 				],
 				[
 					44,
@@ -592,7 +592,7 @@
 					"left_delete",
 					null,
 					"AQAAANQFAAAAAAAA1AUAAAAAAABKAQAAICAgIGRlZiBzZXRfc3dpc2goc2VsZiwgbWVtb3J5X2VmZmljaWVudD1UcnVlKToKICAgICAgICAiIiJTZXRzIHN3aXNoIGZ1bmN0aW9uIGFzIG1lbW9yeSBlZmZpY2llbnQgKGZvciB0cmFpbmluZykgb3Igc3RhbmRhcmQgKGZvciBleHBvcnQpLgogICAgICAgIEFyZ3M6CiAgICAgICAgICAgIG1lbW9yeV9lZmZpY2llbnQgKGJvb2wpOiBXaGV0aGVyIHRvIHVzZSBtZW1vcnktZWZmaWNpZW50IHZlcnNpb24gb2Ygc3dpc2guCiAgICAgICAgIiIiCiAgICAgICAgc2VsZi5zd2lzaCA9IE1lbW9yeUVmZmljaWVudFN3aXNoKCkgaWYgbWVtb3J5X2VmZmljaWVudCBlbHNlIFN3aXNoKCkK",
-					"AQAAAAAAAAABAAAAHgcAAAAAAADUBQAAAAAAAAAAAAAAAPC/"
+					"BAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8L8AAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADwvwAAAAABAAAAHgcAAAAAAADUBQAAAAAAAAAAAAAAAPC/"
 				],
 				[
 					46,
@@ -600,7 +600,7 @@
 					"left_delete",
 					null,
 					"AQAAANMFAAAAAAAA0wUAAAAAAAABAAAACg",
-					"AQAAAAAAAAABAAAA1AUAAAAAAADUBQAAAAAAAAAAAAAAAPC/"
+					"BAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8L8AAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADwvwAAAAABAAAA1AUAAAAAAADUBQAAAAAAAAAAAAAAAPC/"
 				],
 				[
 					48,
@@ -608,7 +608,7 @@
 					"left_delete",
 					null,
 					"AQAAANIFAAAAAAAA0gUAAAAAAAABAAAACg",
-					"AQAAAAAAAAABAAAA0wUAAAAAAADTBQAAAAAAAAAAAAAAAPC/"
+					"BAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8L8AAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADwvwAAAAABAAAA0wUAAAAAAADTBQAAAAAAAAAAAAAAAPC/"
 				],
 				[
 					52,
@@ -616,7 +616,7 @@
 					"ensure_newline_at_eof",
 					null,
 					"AQAAANIFAAAAAAAA0wUAAAAAAAAAAAAA",
-					"AQAAAAAAAAABAAAA0gUAAAAAAADSBQAAAAAAAAAAAAAAAPC/"
+					"BAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8L8AAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADwvwAAAAABAAAA0gUAAAAAAADSBQAAAAAAAAAAAAAAAPC/"
 				],
 				[
 					57,
@@ -626,7 +626,7 @@
 						"characters": "silu"
 					},
 					"BQAAAM4DAAAAAAAAzwMAAAAAAAAAAAAAzwMAAAAAAADPAwAAAAAAAAUAAABzd2lzaM8DAAAAAAAA0AMAAAAAAAAAAAAA0AMAAAAAAADRAwAAAAAAAAAAAADRAwAAAAAAANIDAAAAAAAAAAAAAA",
-					"AQAAAAAAAAABAAAAzgMAAAAAAADTAwAAAAAAAAAAAAAAAPC/"
+					"BAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8L8AAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADwvwAAAAABAAAAzgMAAAAAAADTAwAAAAAAAAAAAAAAAPC/"
 				],
 				[
 					68,
@@ -636,7 +636,7 @@
 						"characters": "sil"
 					},
 					"BAAAAHYFAAAAAAAAdwUAAAAAAAAAAAAAdwUAAAAAAAB3BQAAAAAAAAUAAABzd2lzaHcFAAAAAAAAeAUAAAAAAAAAAAAAeAUAAAAAAAB5BQAAAAAAAAAAAAA",
-					"AQAAAAAAAAABAAAAdgUAAAAAAAB7BQAAAAAAAAAAAAAAAPC/"
+					"BAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8L8AAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADwvwAAAAABAAAAdgUAAAAAAAB7BQAAAAAAAAAAAAAAAPC/"
 				],
 				[
 					71,
@@ -646,18 +646,267 @@
 						"characters": "u"
 					},
 					"AQAAAHkFAAAAAAAAegUAAAAAAAAAAAAA",
-					"AQAAAAAAAAABAAAAeQUAAAAAAAB5BQAAAAAAAAAAAAAAAPC/"
+					"BAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPC/AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8L8AAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADwvwAAAAABAAAAeQUAAAAAAAB5BQAAAAAAAAAAAAAAAPC/"
 				]
 			]
 		},
 		{
-			"file": "crainet/models/blocks/BiFPN/BiFPN.py",
+			"file": "crainet/models/blocks/mbconvblock.py",
 			"settings":
 			{
-				"buffer_size": 10479,
+				"buffer_size": 5680,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
-			}
+			},
+			"undo_stack":
+			[
+				[
+					35,
+					1,
+					"left_delete",
+					null,
+					"AQAAAJ0EAAAAAAAAnQQAAAAAAAAGAAAAVW5pb25b",
+					"AQAAAAAAAAABAAAAowQAAAAAAACdBAAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					38,
+					1,
+					"left_delete",
+					null,
+					"AQAAAKAEAAAAAAAAoAQAAAAAAAABAAAAXQ",
+					"AQAAAAAAAAABAAAAoQQAAAAAAAChBAAAAAAAAAAAAAAAAPC/"
+				]
+			]
+		},
+		{
+			"file": "crainet/models/blocks/bottleneck.py",
+			"settings":
+			{
+				"buffer_size": 3263,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			},
+			"undo_stack":
+			[
+				[
+					6,
+					1,
+					"insert",
+					{
+						"characters": "\n"
+					},
+					"AgAAAFMKAAAAAAAAVAoAAAAAAAAAAAAAVAoAAAAAAABcCgAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAUwoAAAAAAABTCgAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					7,
+					2,
+					"left_delete",
+					null,
+					"AgAAAFgKAAAAAAAAWAoAAAAAAAAEAAAAICAgIFQKAAAAAAAAVAoAAAAAAAAEAAAAICAgIA",
+					"AQAAAAAAAAABAAAAXAoAAAAAAABcCgAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					8,
+					1,
+					"insert",
+					{
+						"characters": "\n"
+					},
+					"AQAAAFQKAAAAAAAAVQoAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAVAoAAAAAAABUCgAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					9,
+					1,
+					"paste",
+					null,
+					"AQAAAFUKAAAAAAAA0QwAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAVQoAAAAAAABVCgAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					18,
+					1,
+					"left_delete",
+					null,
+					"AQAAAOwCAAAAAAAA7AIAAAAAAAAGAAAAX2xheWVy",
+					"AQAAAAAAAAABAAAA7AIAAAAAAADyAgAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					30,
+					1,
+					"paste",
+					null,
+					"AgAAAOgCAAAAAAAACAMAAAAAAAAAAAAACAMAAAAAAAAIAwAAAAAAADAAAABub3JtOiBPcHRpb25hbFtDYWxsYWJsZVsuLi4sIG5uLk1vZHVsZV1dID0gTm9uZSw",
+					"AQAAAAAAAAABAAAAGAMAAAAAAADoAgAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					40,
+					1,
+					"insert",
+					{
+						"characters": ","
+					},
+					"AQAAAEEAAAAAAAAAQgAAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAQQAAAAAAAABBAAAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					41,
+					1,
+					"insert",
+					{
+						"characters": " Union"
+					},
+					"BgAAAEIAAAAAAAAAQwAAAAAAAAAAAAAAQwAAAAAAAABEAAAAAAAAAAAAAABEAAAAAAAAAEUAAAAAAAAAAAAAAEUAAAAAAAAARgAAAAAAAAAAAAAARgAAAAAAAABHAAAAAAAAAAAAAABHAAAAAAAAAEgAAAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAQgAAAAAAAABCAAAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					49,
+					1,
+					"insert",
+					{
+						"characters": ","
+					},
+					"AQAAAP4CAAAAAAAA/wIAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAA/gIAAAAAAAD+AgAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					50,
+					1,
+					"insert",
+					{
+						"characters": " None"
+					},
+					"BQAAAP8CAAAAAAAAAAMAAAAAAAAAAAAAAAMAAAAAAAABAwAAAAAAAAAAAAABAwAAAAAAAAIDAAAAAAAAAAAAAAIDAAAAAAAAAwMAAAAAAAAAAAAAAwMAAAAAAAAEAwAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAA/wIAAAAAAAD/AgAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					56,
+					3,
+					"left_delete",
+					null,
+					"AwAAAAADAAAAAAAAAAMAAAAAAAAEAAAATm9uZf8CAAAAAAAA/wIAAAAAAAABAAAAIP4CAAAAAAAA/gIAAAAAAAABAAAALA",
+					"AQAAAAAAAAABAAAABAMAAAAAAAAAAwAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					58,
+					1,
+					"left_delete",
+					null,
+					"AQAAAP4CAAAAAAAA/gIAAAAAAAABAAAAXQ",
+					"AQAAAAAAAAABAAAA/wIAAAAAAAD/AgAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					61,
+					1,
+					"left_delete",
+					null,
+					"AQAAAPUCAAAAAAAA9QIAAAAAAAAGAAAAVW5pb25b",
+					"AQAAAAAAAAABAAAA+wIAAAAAAAD1AgAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					68,
+					1,
+					"insert",
+					{
+						"characters": "Union"
+					},
+					"BgAAACsDAAAAAAAALAMAAAAAAAAAAAAALAMAAAAAAAAsAwAAAAAAAAgAAABPcHRpb25hbCwDAAAAAAAALQMAAAAAAAAAAAAALQMAAAAAAAAuAwAAAAAAAAAAAAAuAwAAAAAAAC8DAAAAAAAAAAAAAC8DAAAAAAAAMAMAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAKwMAAAAAAAAzAwAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					76,
+					1,
+					"left_delete",
+					null,
+					"AQAAADoDAAAAAAAAOgMAAAAAAAAFAAAALi4uLCA",
+					"AQAAAAAAAAABAAAAPwMAAAAAAAA6AwAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					80,
+					1,
+					"insert",
+					{
+						"characters": ","
+					},
+					"AQAAAEQDAAAAAAAARQMAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAARAMAAAAAAABEAwAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					81,
+					1,
+					"insert",
+					{
+						"characters": " "
+					},
+					"AQAAAEUDAAAAAAAARgMAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAARQMAAAAAAABFAwAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					83,
+					1,
+					"insert",
+					{
+						"characters": "None"
+					},
+					"BAAAAEYDAAAAAAAARwMAAAAAAAAAAAAARwMAAAAAAABIAwAAAAAAAAAAAABIAwAAAAAAAEkDAAAAAAAAAAAAAEkDAAAAAAAASgMAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAARgMAAAAAAABGAwAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					105,
+					1,
+					"insert",
+					{
+						"characters": "nn."
+					},
+					"BAAAAE4DAAAAAAAATwMAAAAAAAAAAAAATwMAAAAAAABPAwAAAAAAAAQAAABOb25lTwMAAAAAAABQAwAAAAAAAAAAAABQAwAAAAAAAFEDAAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAATgMAAAAAAABSAwAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					107,
+					1,
+					"insert",
+					{
+						"characters": "R"
+					},
+					"AQAAAFEDAAAAAAAAUgMAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAUQMAAAAAAABRAwAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					108,
+					1,
+					"insert_completion",
+					{
+						"completion": "ReLU",
+						"format": "snippet",
+						"keep_prefix": false,
+						"must_insert": false,
+						"trigger": "ReLU"
+					},
+					"AgAAAFEDAAAAAAAAUQMAAAAAAAABAAAAUlEDAAAAAAAAVQMAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAUgMAAAAAAABSAwAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					109,
+					1,
+					"insert",
+					{
+						"characters": "("
+					},
+					"AQAAAFUDAAAAAAAAVgMAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAVQMAAAAAAABVAwAAAAAAAAAAAAAAAPC/"
+				],
+				[
+					112,
+					1,
+					"insert",
+					{
+						"characters": ")"
+					},
+					"AQAAAFYDAAAAAAAAVwMAAAAAAAAAAAAA",
+					"AQAAAAAAAAABAAAAVgMAAAAAAABWAwAAAAAAAAAAAAAAAPC/"
+				]
+			]
 		}
 	],
 	"build_system": "",
@@ -747,6 +996,8 @@
 	],
 	"file_history":
 	[
+		"/home/jon/Documents/CRAI/babyjesus/crainet/models/blocks/BiFPN/BiFPN.py",
+		"/home/jon/Documents/CRAI/babyjesus/crainet/models/blocks/lstm_cell.py",
 		"/home/jon/Documents/CRAI/babyjesus/crainet/models/efficientnet/blocks/basic_upblock.py",
 		"/home/jon/Documents/CRAI/babyjesus/crainet/models/efficientnet/blocks/swish.py",
 		"/home/jon/Documents/CRAI/babyjesus/crainet/models/efficientnet/blocks/__init__.py",
@@ -872,9 +1123,7 @@
 		"/home/jon/Documents/CRAI/fMRI/fMRI/preprocessing/__init__.py",
 		"/home/jon/Documents/CRAI/fMRI/fMRI/preprocessing/fastmri/math.py",
 		"/home/jon/Documents/CRAI/fMRI/fMRI/models/reconstruction/VarNet/fastmri/fftc.py",
-		"/home/jon/Documents/CRAI/fMRI/fMRI/preprocessing/fastmri/__init__.py",
-		"/home/jon/Documents/CRAI/fMRI/fMRI/models/reconstruction/VarNet/phase_varnet.py",
-		"/home/jon/Documents/CRAI/fMRI/fMRI/models/reconstruction/VarNet/fastmri/__init__.py"
+		"/home/jon/Documents/CRAI/fMRI/fMRI/preprocessing/fastmri/__init__.py"
 	],
 	"find":
 	{
@@ -921,7 +1170,6 @@
 				{
 					"buffer": 0,
 					"file": "crainet/models/blocks/squeeze_excitation.py",
-					"selected": true,
 					"semi_transient": false,
 					"settings":
 					{
@@ -932,8 +1180,8 @@
 						"selection":
 						[
 							[
-								950,
-								950
+								996,
+								996
 							]
 						],
 						"settings":
@@ -945,8 +1193,8 @@
 								{
 									"1":
 									[
-										959,
-										960
+										995,
+										996
 									]
 								},
 								"icon":
@@ -961,8 +1209,8 @@
 								{
 									"1":
 									[
-										781,
-										782
+										994,
+										995
 									]
 								},
 								"unmatched":
@@ -971,21 +1219,11 @@
 							},
 							"bracket_highlighter.regions":
 							[
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
 								"bh_default",
 								"bh_default_center",
 								"bh_default_open",
@@ -996,6 +1234,26 @@
 								"bh_double_quote_open",
 								"bh_double_quote_close",
 								"bh_double_quote_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
 								"bh_curly",
 								"bh_curly_center",
 								"bh_curly_open",
@@ -1006,26 +1264,16 @@
 								"bh_single_quote_open",
 								"bh_single_quote_close",
 								"bh_single_quote_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
 								"bh_tag",
 								"bh_tag_center",
 								"bh_tag_open",
 								"bh_tag_close",
-								"bh_tag_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content"
+								"bh_tag_content"
 							],
 							"git_gutter_is_enabled": true,
 							"show_definitions": false,
@@ -1035,25 +1283,26 @@
 						"translation.y": 44.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 2,
 					"stack_multiselect": false,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "crainet/models/blocks/BiFPN/BiFPN.py",
+					"file": "crainet/models/blocks/mbconvblock.py",
+					"selected": true,
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 10479,
+						"buffer_size": 5680,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								1184,
+								1184
 							]
 						],
 						"settings":
@@ -1063,12 +1312,27 @@
 							{
 								"close":
 								{
+									"1":
+									[
+										1382,
+										1383
+									]
 								},
 								"icon":
 								{
+									"1":
+									[
+										"Packages/BracketHighlighter/icons/round_bracket.png",
+										"region.yellowish"
+									]
 								},
 								"open":
 								{
+									"1":
+									[
+										842,
+										843
+									]
 								},
 								"unmatched":
 								{
@@ -1076,21 +1340,11 @@
 							},
 							"bracket_highlighter.regions":
 							[
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
 								"bh_default",
 								"bh_default_center",
 								"bh_default_open",
@@ -1101,6 +1355,26 @@
 								"bh_double_quote_open",
 								"bh_double_quote_close",
 								"bh_double_quote_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
 								"bh_curly",
 								"bh_curly_center",
 								"bh_curly_open",
@@ -1111,33 +1385,143 @@
 								"bh_single_quote_open",
 								"bh_single_quote_close",
 								"bh_single_quote_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
 								"bh_tag",
 								"bh_tag_center",
 								"bh_tag_open",
 								"bh_tag_close",
-								"bh_tag_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content"
+								"bh_tag_content"
 							],
 							"git_gutter_is_enabled": true,
 							"show_definitions": false,
 							"syntax": "Packages/Python/Python.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 540.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"stack_multiselect": false,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "crainet/models/blocks/bottleneck.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3263,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								855,
+								855
+							]
+						],
+						"settings":
+						{
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+									"1":
+									[
+										854,
+										855
+									]
+								},
+								"icon":
+								{
+									"1":
+									[
+										"Packages/BracketHighlighter/icons/round_bracket.png",
+										"region.yellowish"
+									]
+								},
+								"open":
+								{
+									"1":
+									[
+										853,
+										854
+									]
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.regions":
+							[
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content"
+							],
+							"git_gutter_is_enabled": true,
+							"show_definitions": false,
+							"syntax": "Packages/Python/Python.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 233.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
@@ -1262,7 +1646,7 @@
 		[
 			[
 				"",
-				"~/Documents/CRAI/fMRI-training/fMRI-training.sublime-project"
+				"~/Documents/CRAI/fMRI/fMRI.sublime-project"
 			],
 			[
 				"entr",

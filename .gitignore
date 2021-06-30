@@ -140,3 +140,4 @@ dmypy.json
 cifar-10-batches-py
 *.pth
 *.sublime-project
+*.sublime-workspace

@@ -35,7 +35,7 @@ class MBConvBlock(nn.Module):
                  se_ratio: float = 0.25,
                  expand_ratio: Union[int, float] = 1.,
                  id_skip: bool = True,
-                 norm: Union[str] = 'batch_norm',
+                 norm: str = 'batch_norm',
                  batch_norm_momentum: float = 0.99,
                  batch_norm_epsilon: float = 0.001,
                  image_size: Union[int, Tuple[int]] = None,
