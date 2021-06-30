@@ -20,6 +20,7 @@ class BasicBlock(nn.Module):
                  channels: int,
                  stride: int = 1,
                  bias: bool = True,
+                 groups: int = 1,
                  ratio: float = 1./16,
                  norm: str = 'batch_norm',
                  activation: Union[Callable[nn.Module], None] = nn.ReLU(inplace=True),
@@ -45,6 +46,7 @@ class BasicBlock(nn.Module):
             out_channels=channels,
             kernel_size=3,
             stride=stride,
+            groups=1,
             bias=False,
             padding=1,
             )
@@ -55,6 +57,7 @@ class BasicBlock(nn.Module):
             out_channels=channels,
             kernel_size=3,
             stride=1,
+            groups=groups,
             bias=False,
             padding=1,
             )
@@ -120,6 +123,7 @@ class BasicBlockV2(nn.Module):
                  channels: int,
                  stride: int = 1,
                  bias: bool = True,
+                 groups: int = 1,
                  ratio: float = 1./16,
                  norm: str = 'batch_norm',
                  activation: Union[Callable[nn.Module], None] = nn.ReLU(inplace=True),
@@ -146,6 +150,7 @@ class BasicBlockV2(nn.Module):
             out_channels=channels,
             kernel_size=3,
             stride=stride,
+            groups=1,
             bias=False,
             padding=1,
             )
@@ -156,6 +161,7 @@ class BasicBlockV2(nn.Module):
             out_channels=channels,
             kernel_size=3,
             stride=1,
+            groups=groups,
             bias=False,
             padding=1,
             )
