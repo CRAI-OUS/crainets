@@ -1,16 +1,15 @@
 # External standard modules
-from typing import Optional, Callable
+from typing import Optional, Callable, Union
 
 # External third party modules
 import torch
 import torch.nn as nn
 
 # Internal modules
-from .utils import get_same_padding_conv2d
 from .squeeze_excitation import SqueezeExcitation
 
 
-class Bottleneck(nn.Module):
+class BottleneckV2(nn.Module):
     """
     Original paper:
     https://arxiv.org/pdf/1603.05027.pdf
@@ -23,50 +22,60 @@ class Bottleneck(nn.Module):
                  mid_channels: int,
                  stride: int = 1,
                  groups: int = 1,
-                 dilation: int = 1,
                  bias: bool = False,
                  ratio: float = 1./16,
-                 norm_layer: Optional[Callable[..., nn.Module]] = None,
-                 activation_func: Optional[Callable[..., nn.Module]] = None,
+                 norm: str = 'batch_norm',
+                 activation: Union[Callable[nn.Module], None] = nn.ReLU(inplace=True),
+                 downsample: Optional[nn.Module] = None,
                  ):
         super().__init__()
-        if norm_layer is None:
-            norm_layer = nn.BatchNorm2d
 
-        stride = stride if isinstance(stride, (list, tuple)) else (stride, stride)
+        self.stride = stride
+        if stride > 1 and downsample is None:
+            downsample = nn.Conv2d(
+                in_channels=channels,
+                out_channels=mid_channels,
+                kernel_size=1,
+                stride=stride,
+                bias=False,
+                )
 
-        Conv2d = get_same_padding_conv2d(image_size=None)
-        self.norm0 = norm_layer(channels)
+        self.downsample = downsample
 
-        self.conv1 = Conv2d(in_channels=channels,
-                            out_channels=mid_channels,
-                            kernel_size=1,
-                            stride=1,
-                            bias=bias,
-                            )
-        self.norm1 = norm_layer(mid_channels)
+        self.norm0 = self._norm(norm, channels, bias=bias)
 
-        self.conv2 = Conv2d(in_channels=mid_channels,
-                            out_channels=mid_channels,
-                            kernel_size=3,
-                            stride=stride,
-                            groups=groups,
-                            dilation=dilation,
-                            bias=bias,
-                            )
-        self.norm2 = norm_layer(mid_channels)
+        self.conv1 = nn.Conv2d(
+            in_channels=channels,
+            out_channels=mid_channels,
+            kernel_size=1,
+            stride=1,
+            bias=False,
+            )
+        self.norm1 = self._norm(norm, mid_channels, bias=bias)
 
-        self.conv3 = Conv2d(in_channels=mid_channels,
-                            out_channels=channels,
-                            kernel_size=1)
+        self.conv2 = nn.Conv2d(
+            in_channels=mid_channels,
+            out_channels=mid_channels,
+            kernel_size=3,
+            stride=stride,
+            groups=groups,
+            bias=False,
+            padding=1,
+            )
+        self.norm2 = self._norm(norm, mid_channels, bias=bias)
 
-        if activation_func is None:
-            self.activation = nn.ReLU(inplace=True)
-        else:
-            self.activation = activation_func
+        self.conv3 = nn.Conv2d(
+            in_channels=mid_channels,
+            out_channels=channels,
+            kernel_size=1,
+            stride=1,
+            bias=False
+            )
+
+        self.activation = activation
+
 
         self.se = SqueezeExcitation(channels=channels, ratio=ratio)
-
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         identity = x
@@ -84,6 +93,33 @@ class Bottleneck(nn.Module):
         x = self.conv3(x)
 
         x = self.se(x)
+
+        if self.stride > 1:
+            identity = self.downsample(identity)
+
         x += identity
 
         return x
+
+    def _norm(self, norm: str, output: int, bias: bool):
+        if norm == "batch_norm":
+            return nn.BatchNorm2d(
+                num_features=output,
+                momentum=self.batch_norm_momentum,
+                eps=self.batch_norm_epsilon,
+                affine=bias
+                )
+        elif norm == "instance_norm":
+            return nn.InstanceNorm2d(
+                num_features=output,
+                momentum=self.batch_norm_momentum,
+                eps=self.batch_norm_epsilon,
+                affine=bias
+                )
+        else:
+            return nn.LayerNorm(
+                normalized_shape=1,
+                eps=self.batch_norm_epsilon,
+                elementwise_affine=bias,
+                )
+
