@@ -10,7 +10,7 @@ class BlockArgs:
     expand_ratio: int
     input_filters: int
     output_filters: int
-    se_ratio: Union[float, None] = 0.25
+    se_ratio: Union[float, None] = 1./4
     id_skip: bool = True
 
 # Efficientnet blocks
@@ -75,16 +75,16 @@ blocks = [
 
 #NOTE! breach of DRY principle
 VALID_MODELS = (
-    'efficientnet-b0', 'efficientnet-b1', 'efficientnet-b2', 'efficientnet-b3',
-    'efficientnet-b4', 'efficientnet-b5', 'efficientnet-b6', 'efficientnet-b7',
-    'efficientnet-b8', 'efficientnet-l2', 'efficientnet-c2', 'efficientnet-c16'
+    'efficientnet-b0', 'efficientnet-b1', 'efficientnet-b2',
+    'efficientnet-b3', 'efficientnet-b4', 'efficientnet-b5',
+    'efficientnet-b6', 'efficientnet-b7', 'efficientnet-b8',
+    'efficientnet-l2',
 )
 
 @dataclass
 class GlobalParams:
     width_coefficient: Union[float, None] = None
     depth_coefficient: Union[float, None] = None
-    image_size: Union[int, None] = None
     min_depth: Union[int, None] = None
     dropout_rate: float = 0.2
     batch_norm_momentum: float = 0.99
@@ -124,10 +124,6 @@ def efficientnet_params(model_name):
             {'width_coefficient': 2.2, 'depth_coefficient': 3.6, 'resolution': 672, 'drop_connect_rate': 0.5},
         'efficientnet-l2':
             {'width_coefficient': 4.3, 'depth_coefficient': 5.3, 'resolution': 800, 'drop_connect_rate': 0.5},
-        'efficientnet-c2':
-            {'width_coefficient': 1.0, 'depth_coefficient': 1.0, 'resolution': 224, 'drop_connect_rate': 0.2, 'num_classes': 2},
-        'efficientnet-c16':
-            {'width_coefficient': 1.0, 'depth_coefficient': 1.0, 'resolution': 224, 'drop_connect_rate': 0.2, 'num_classes': 16},
         }
 
     return params_dict[model_name]

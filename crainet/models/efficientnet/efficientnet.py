@@ -5,18 +5,15 @@ import torch
 from torch import nn
 from torch.nn import functional as F
 
-from babyjesus.models.efficientnet.blocks.utils.conv_pad import get_same_padding_conv2d
+from babyjesus.models.efficientnet.blocks.utils.conv_pad import Conv2dDynamicSamePadding
 
 from babyjesus.models.efficientnet.utils import (
     round_filters,
     round_repeats,
-    calculate_output_image_size,
 )
 
 from babyjesus.models.efficientnet.blocks import (
     MBConvBlock,
-    Swish,
-    MemoryEfficientSwish,
     )
 
 from babyjesus.models.efficientnet.config import (
@@ -37,6 +34,7 @@ class EfficientNet(nn.Module):
         global_params (namedtuple): A set of GlobalParams shared between blocks.
     References:
         [1] https://arxiv.org/abs/1905.11946 (EfficientNet)
+        https://github.com/zylo117/Yet-Another-EfficientDet-Pytorch/blob/master/efficientnet/model.py
     Example:
 
 
@@ -50,8 +48,11 @@ class EfficientNet(nn.Module):
 
     def __init__(self,
                  in_channels: int,
+                 num_classes: int,
                  blocks_args: List[BlockArgs],
-                 global_params: GlobalParams):
+                 global_params: GlobalParams,
+                 norm: str = "batch_norm",
+                 ):
         super().__init__()
 
         assert isinstance(blocks_args, list), 'blocks_args should be a list'
@@ -64,17 +65,14 @@ class EfficientNet(nn.Module):
         self.batch_norm_momentum = 1 - global_params.batch_norm_momentum
         self.batch_norm_epsilon = global_params.batch_norm_epsilon
 
-        # Get stem static or dynamic convolution depending on image size
-        image_size = global_params.image_size
-        Conv2d = get_same_padding_conv2d(image_size=image_size)
+        # Use dynamic padding, I see no reason not to use this
+        Conv2d = Conv2dDynamicSamePadding
 
         # Stem
         stem_stride = 2
         out_channels = round_filters(32, global_params)  # number of output channels
         self.conv_stem = Conv2d(in_channels, out_channels, kernel_size=3, stride=stem_stride, bias=False)
-        self.norm0 = self._norm_method(output=out_channels)
-
-        image_size = calculate_output_image_size(image_size, stride=stem_stride)
+        self.norm0 = self._norm(norm=norm, output=out_channels, bias=True)
 
         # Build blocks
         self.blocks = nn.ModuleList([])
@@ -97,7 +95,7 @@ class EfficientNet(nn.Module):
                 batch_norm_momentum=global_params.batch_norm_momentum,
                 batch_norm_epsilon=global_params.batch_norm_epsilon,
                 ))
-            image_size = calculate_output_image_size(image_size, block_args.stride)
+
             if block_args.num_repeat > 1: # modify block_args to keep same output size
                 block_args.input_filters = block_args.output_filters
                 block_args.stride = 1
@@ -119,16 +117,14 @@ class EfficientNet(nn.Module):
         # Head
         in_channels = block_args.output_filters  # output of final block
         out_channels = round_filters(1280, global_params)
-        Conv2d = get_same_padding_conv2d(image_size=image_size)
         self.conv_head = Conv2d(in_channels, out_channels, kernel_size=1, bias=False)
-        self.norm1 = self._norm_method(output=out_channels)
+        self.norm1 = self._norm(norm=norm, output=out_channels, bias=True)
 
-        if self.global_params.num_classes:
-            self._avg_pooling = nn.AdaptiveAvgPool2d(1)
-            self._dropout = nn.Dropout(self.global_params.dropout_rate)
-            self._fc = nn.Linear(out_channels, self.global_params.num_classes)
+        self._avg_pooling = nn.AdaptiveAvgPool2d(1)
+        self._dropout = nn.Dropout(self.global_params.dropout_rate)
+        self._fc = nn.Linear(out_channels, num_classes)
 
-        self.swish = MemoryEfficientSwish()
+        self.silu = nn.SiLU()
 
     def forward(self, inputs):
         """EfficientNet's forward function.
@@ -139,7 +135,7 @@ class EfficientNet(nn.Module):
             Output of this model after processing.
         """
         # Stem
-        x = self.swish(self.norm0(self.conv_stem(inputs)))
+        x = self.silu(self.norm0(self.conv_stem(inputs)))
 
         # Blocks
         for idx, block in enumerate(self.blocks):
@@ -149,46 +145,45 @@ class EfficientNet(nn.Module):
             x = block(x, drop_connect_rate=drop_connect_rate)
 
         # Head
-        x = self.swish(self.norm1(self.conv_head(x)))
+        x = self.silu(self.norm1(self.conv_head(x)))
 
-        if self.global_params.num_classes:
-            # x = self._avg_pooling(x)
-            x = x.flatten(start_dim=1)
-            x = self._dropout(x)
-            x = self._fc(x)
+        x = self._avg_pooling(x)
+        x = x.flatten(start_dim=1)
+        x = self._dropout(x)
+        x = self._fc(x)
 
         return x
 
-    def set_swish(self, memory_efficient=True):
-        """Sets swish function as memory efficient (for training) or standard (for export).
-        Args:
-            memory_efficient (bool): Whether to use memory-efficient version of swish.
-        """
-        self.swish = MemoryEfficientSwish() if memory_efficient else Swish()
-        for block in self.blocks:
-            block.set_swish(memory_efficient)
-
-    def _norm_method(self, output: int):
-        norms = {
-            'batch_norm': nn.BatchNorm2d(
+    def _norm(self, norm: str, output: int, bias: bool):
+        if norm == "batch_norm":
+            return nn.BatchNorm2d(
                 num_features=output,
                 momentum=self.batch_norm_momentum,
                 eps=self.batch_norm_epsilon,
-                ),
-            'instance_norm': nn.InstanceNorm2d(
+                affine=bias,
+                )
+        elif norm == "instance_norm":
+            return nn.InstanceNorm2d(
                 num_features=output,
                 momentum=self.batch_norm_momentum,
                 eps=self.batch_norm_epsilon,
-                ),
-            'layer_norm': nn.LayerNorm(
-                normalized_shape=output,
+                affine=bias,
+                )
+        else:
+            return nn.LayerNorm(
+                normalized_shape=1,
                 eps=self.batch_norm_epsilon,
-                ),
-            }
-        return norms[self.global_params.norm_method]
+                elementwise_affine=bias,
+                )
 
     @classmethod
-    def from_name(cls, model_name: str, in_channels: int = 3):
+    def from_name(
+        cls,
+        model_name: str,
+        num_classes: int,
+        in_channels: int = 3,
+        norm: str = 'batch_norm',
+        ):
         """
         """
         assert model_name in VALID_MODELS, f'the model: {model_name} not found'
@@ -200,7 +195,10 @@ class EfficientNet(nn.Module):
         for key, value in args_dict.items():
             setattr(global_params, key, value)
 
-        return cls(in_channels=in_channels,
-                   blocks_args=blocks_args,
-                   global_params=global_params,
-                   )
+        return cls(
+            in_channels=in_channels,
+            num_classes=num_classes,
+            blocks_args=blocks_args,
+            global_params=global_params,
+            norm=norm,
+            )

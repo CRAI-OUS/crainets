@@ -8,7 +8,7 @@ from torch import nn
 # Internal modules
 from .squeeze_excitation import SqueezeExcitation
 
-from .utils.conv_pad import get_same_padding_conv2d
+from .utils.conv_pad import Conv2dDynamicSamePadding
 from .utils.utils import (
     drop_connect,
     calculate_output_image_size,
@@ -54,17 +54,17 @@ class MBConvBlock(nn.Module):
         self.mid_channels = int(in_channels * self.expand_ratio)  # number of mid channels
         self.out_channels = out_channels
 
+        Conv2d = Conv2dDynamicSamePadding
+
         if self.expand_ratio != 1:
-            Conv2d = get_same_padding_conv2d(image_size=image_size)
             self.expand_conv = Conv2d(in_channels=in_channels,
                                       out_channels=self.mid_channels,
                                       kernel_size=1,
                                       bias=False,
                                       )
-            self.norm0 = self._norm(norm=norm, output=self.mid_channels)
+            self.norm0 = self._norm(norm=norm, output=self.mid_channels, bias=True)
 
         # Depthwise convolution phase
-        Conv2d = get_same_padding_conv2d(image_size=image_size)
 
         self.depthwise_conv = Conv2d(
             in_channels=self.mid_channels,
@@ -75,23 +75,23 @@ class MBConvBlock(nn.Module):
             bias=False,
             )
 
-        self.norm1 = self._norm(norm=norm, output=self.mid_channels)
+        self.norm1 = self._norm(norm=norm, output=self.mid_channels, bias=True)
 
-        image_size = calculate_output_image_size(image_size, stride)
         # Squeeze and Excitation layer, if desired
         if self.has_se:
             # ratio such that the number of squeezed channels are ratio(0.25)*in_channels from efficientnet architecture
-            self.squeeze_excite = SqueezeExcitation(channels=self.mid_channels,
-                                                    ratio=se_ratio*self.in_channels/self.mid_channels)
+            self.squeeze_excite = SqueezeExcitation(
+                channels=self.mid_channels,
+                ratio=se_ratio*self.in_channels/self.mid_channels,
+                )
 
         # Pointwise convolution phase
-        Conv2d = get_same_padding_conv2d(image_size=image_size)
         self.project_conv = Conv2d(in_channels=self.mid_channels,
                                    out_channels=out_channels,
                                    kernel_size=1,
                                    bias=False,
                                    )
-        self.norm2 = self._norm(norm=norm, output=out_channels)
+        self.norm2 = self._norm(norm=norm, output=out_channels, bias=True)
         self.silu = torch.nn.SiLU()
 
     def forward(self, inputs, drop_connect_rate=None):
@@ -131,21 +131,24 @@ class MBConvBlock(nn.Module):
         return x
 
 
-    def _norm(self, norm: str, output: int):
+    def _norm(self, norm: str, output: int, bias: bool):
         if norm == "batch_norm":
             return nn.BatchNorm2d(
                 num_features=output,
                 momentum=self.batch_norm_momentum,
                 eps=self.batch_norm_epsilon,
+                affine=bias,
                 )
         elif norm == "instance_norm":
             return nn.InstanceNorm2d(
                 num_features=output,
                 momentum=self.batch_norm_momentum,
-                eps=self.batch_norm_epsilon
+                eps=self.batch_norm_epsilon,
+                affine=bias,
                 )
         else:
             return nn.LayerNorm(
                 normalized_shape=1,
                 eps=self.batch_norm_epsilon,
+                elementwise_affine=bias,
                 )
