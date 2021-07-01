@@ -5,18 +5,18 @@ import torch
 from torch import nn
 from torch.nn import functional as F
 
-from babyjesus.models.efficientnet.blocks.utils.conv_pad import Conv2dDynamicSamePadding
+from ..blocks.utils.conv_pad import Conv2dDynamicSamePadding
 
-from babyjesus.models.efficientnet.utils import (
+from crainet.models.efficientnet.utils import (
     round_filters,
     round_repeats,
 )
 
-from babyjesus.models.efficientnet.blocks import (
+from ..blocks import (
     MBConvBlock,
     )
 
-from babyjesus.models.efficientnet.config import (
+from .config import (
     BlockArgs,
     GlobalParams,
     VALID_MODELS,
@@ -51,7 +51,6 @@ class EfficientNet(nn.Module):
                  num_classes: int,
                  blocks_args: List[BlockArgs],
                  global_params: GlobalParams,
-                 norm: str = "batch_norm",
                  ):
         super().__init__()
 
@@ -72,7 +71,7 @@ class EfficientNet(nn.Module):
         stem_stride = 2
         out_channels = round_filters(32, global_params)  # number of output channels
         self.conv_stem = Conv2d(in_channels, out_channels, kernel_size=3, stride=stem_stride, bias=False)
-        self.norm0 = self._norm(norm=norm, output=out_channels, bias=True)
+        self.norm0 = self._norm(norm=global_params.norm, output=out_channels, bias=True)
 
         # Build blocks
         self.blocks = nn.ModuleList([])
@@ -91,7 +90,7 @@ class EfficientNet(nn.Module):
                 se_ratio=block_args.se_ratio,
                 expand_ratio=block_args.expand_ratio,
                 id_skip=block_args.id_skip,
-                norm_method=global_params.norm_method,
+                norm=global_params.norm,
                 batch_norm_momentum=global_params.batch_norm_momentum,
                 batch_norm_epsilon=global_params.batch_norm_epsilon,
                 ))
@@ -109,7 +108,7 @@ class EfficientNet(nn.Module):
                     se_ratio=block_args.se_ratio,
                     expand_ratio=block_args.expand_ratio,
                     id_skip=block_args.id_skip,
-                    norm_method=global_params.norm_method,
+                    norm=global_params.norm,
                     batch_norm_momentum=global_params.batch_norm_momentum,
                     batch_norm_epsilon=global_params.batch_norm_epsilon,
                     ))
@@ -118,7 +117,7 @@ class EfficientNet(nn.Module):
         in_channels = block_args.output_filters  # output of final block
         out_channels = round_filters(1280, global_params)
         self.conv_head = Conv2d(in_channels, out_channels, kernel_size=1, bias=False)
-        self.norm1 = self._norm(norm=norm, output=out_channels, bias=True)
+        self.norm1 = self._norm(norm=global_params.norm, output=out_channels, bias=True)
 
         self._avg_pooling = nn.AdaptiveAvgPool2d(1)
         self._dropout = nn.Dropout(self.global_params.dropout_rate)
@@ -182,7 +181,6 @@ class EfficientNet(nn.Module):
         model_name: str,
         num_classes: int,
         in_channels: int = 3,
-        norm: str = 'batch_norm',
         ):
         """
         """
@@ -200,5 +198,4 @@ class EfficientNet(nn.Module):
             num_classes=num_classes,
             blocks_args=blocks_args,
             global_params=global_params,
-            norm=norm,
             )
