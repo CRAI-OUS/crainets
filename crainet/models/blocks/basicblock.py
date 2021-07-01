@@ -23,7 +23,7 @@ class BasicBlock(nn.Module):
                  groups: int = 1,
                  ratio: float = 1./16,
                  norm: str = 'batch_norm',
-                 activation: Union[Callable[nn.Module], None] = nn.ReLU(inplace=True),
+                 activation: Union[Callable[..., nn.Module], None] = nn.ReLU(inplace=True),
                  downsample: Optional[nn.Module] = None,
                  ):
         super().__init__()
@@ -91,21 +91,16 @@ class BasicBlock(nn.Module):
         if norm == "batch_norm":
             return nn.BatchNorm2d(
                 num_features=output,
-                momentum=self.batch_norm_momentum,
-                eps=self.batch_norm_epsilon,
                 affine=bias
                 )
         elif norm == "instance_norm":
             return nn.InstanceNorm2d(
                 num_features=output,
-                momentum=self.batch_norm_momentum,
-                eps=self.batch_norm_epsilon,
                 affine=bias
                 )
         else:
             return nn.LayerNorm(
                 normalized_shape=1,
-                eps=self.batch_norm_epsilon,
                 elementwise_affine=bias,
                 )
 
@@ -126,7 +121,7 @@ class BasicBlockV2(nn.Module):
                  groups: int = 1,
                  ratio: float = 1./16,
                  norm: str = 'batch_norm',
-                 activation: Union[Callable[nn.Module], None] = nn.ReLU(inplace=True),
+                 activation: Union[Callable[..., nn.Module], None] = nn.ReLU(inplace=True),
                  downsample: Optional[nn.Module] = None,
                  ):
         super().__init__()
@@ -201,14 +196,11 @@ class BasicBlockV2(nn.Module):
         elif norm == "instance_norm":
             return nn.InstanceNorm2d(
                 num_features=output,
-                momentum=self.batch_norm_momentum,
-                eps=self.batch_norm_epsilon,
                 affine=bias
                 )
         else:
             return nn.LayerNorm(
                 normalized_shape=1,
-                eps=self.batch_norm_epsilon,
                 elementwise_affine=bias,
                 )
 
