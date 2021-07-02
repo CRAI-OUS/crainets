@@ -13,10 +13,10 @@ import numpy as np
 import torch
 
 # Internal modules
-from crainet.config.logger import get_logger
-from crainet.essentials.multi_loss import MultiLoss
-from crainet.essentials.multi_metric import MultiMetric
-from crainet.essentials.multi_tracker import MetricTracker
+from crainets.config.logger import get_logger
+from crainets.essentials.multi_loss import MultiLoss
+from crainets.essentials.multi_metric import MultiMetric
+from crainets.essentials.multi_tracker import MetricTracker
 
 
 class BaseTrainer:

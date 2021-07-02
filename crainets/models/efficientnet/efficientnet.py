@@ -7,7 +7,7 @@ from torch.nn import functional as F
 
 from ..blocks.utils.conv_pad import Conv2dDynamicSamePadding
 
-from crainet.models.efficientnet.utils import (
+from crainets.models.efficientnet.utils import (
     round_filters,
     round_repeats,
 )

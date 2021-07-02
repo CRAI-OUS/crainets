@@ -1,9 +1,9 @@
 from testing.data_loader import train_loader, test_loader
 from testing import config
-from crainet.trainer.trainer import Trainer
-from crainet.models.efficientnet import EfficientNet
-from crainet.essentials.multi_loss import MultiLoss
-from crainet.essentials.multi_metric import MultiMetric
+from crainets.trainer.trainer import Trainer
+from crainets.models.efficientnet import EfficientNet
+from crainets.essentials.multi_loss import MultiLoss
+from crainets.essentials.multi_metric import MultiMetric
 
 from collections.abc import Iterable
 import torch

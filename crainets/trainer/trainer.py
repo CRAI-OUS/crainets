@@ -7,9 +7,9 @@ import torch
 import numpy as np
 
 # Internal modules
-from crainet.base.trainer_base import BaseTrainer
-from crainet.essentials.multi_metric import MultiMetric
-from crainet.essentials.multi_loss import MultiLoss
+from crainets.base.trainer_base import BaseTrainer
+from crainets.essentials.multi_metric import MultiMetric
+from crainets.essentials.multi_loss import MultiLoss
 
 
 class Trainer(BaseTrainer):
