@@ -162,7 +162,7 @@ class BaseTrainer:
                 self.lr_scheduler.step()
 
             loss_dict['loss'] = np.mean(np.array(loss_dict['loss']))
-            val_dict = np.mean(np.array(val_dict['loss']))
+            val_dict['loss'] = np.mean(np.array(val_dict['loss']))
 
             # save logged information regarding this epoch/iteration
             self.metric.training_update(loss=loss_dict, epoch=epoch)

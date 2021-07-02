@@ -16,7 +16,7 @@ def test_efficientnet():
     assert isinstance(config.TRAIN_CONFIG, dict)
 
     # specifiy the nec config
-    model = EfficientNet.from_name(in_channels=3, num_classes=16, model_name='efficientnet-b0')
+    model = EfficientNet.from_name(in_channels=3, num_classes=10, model_name='efficientnet-b0')
     loss = [(1, torch.nn.CrossEntropyLoss())]
     loss = MultiLoss(losses=loss)
 
@@ -30,9 +30,8 @@ def test_efficientnet():
         config=config.TRAIN_CONFIG,
         data_loader=train_loader,
         valid_data_loader=test_loader,
-        seed=666
+        seed=666,
+        accumulative_metrics=True
     )
 
     trainer.train()
-
-test_efficientnet()

@@ -4,6 +4,7 @@ from collections import defaultdict
 
 # Third party modules
 import torch
+import numpy as np
 
 # Internal modules
 from crainet.base.trainer_base import BaseTrainer
@@ -25,6 +26,7 @@ class Trainer(BaseTrainer):
                  seed: int = None,
                  device: str = None,
                  log_step: int = None,
+                 accumulative_metrics: bool = False,
                  ):
 
         super().__init__(model=model,
@@ -34,15 +36,18 @@ class Trainer(BaseTrainer):
                          seed=seed,
                          device=device)
 
+        self.accumulative_metrics = accumulative_metrics
+
         self.data_loader = data_loader
         self.valid_data_loader = valid_data_loader
 
         self.images_pr_iteration = int(config['trainer']['images_pr_iteration'])
         self.val_images_pr_iteration = int(config['trainer']['val_images_pr_iteration'])
 
-        self.len_epoch = len(data_loader) if not self.iterative else self.images_pr_iteration
         self.batch_size = data_loader.batch_size
-        self.log_step = int(self.len_epoch/(4*self.batch_size)) if not isinstance(log_step, int) else log_step
+        self.len_epoch = len(data_loader)*self.batch_size if not self.iterative else self.images_pr_iteration
+
+        self.log_step = int(self.len_epoch/(self.batch_size*4)) if not isinstance(log_step, int) else log_step
 
     def _train_epoch(self, epoch):
         """
@@ -59,11 +64,6 @@ class Trainer(BaseTrainer):
             self.optimizer.zero_grad()
 
             output = self.model(data)
-
-            if len(output.shape) == 2:
-                if batch_idx == 0:
-                    self.logger.warning(f'changing target tensor type to long format for the rest of the session')
-                target = target.long()
 
             loss = self.loss_function(output, target)
             loss.backward()
@@ -93,6 +93,7 @@ class Trainer(BaseTrainer):
 
         self.model.eval()
         metrics = defaultdict(list)
+        accuml = list()
 
         with torch.no_grad():
             for batch_idx, (data, target) in enumerate(self.valid_data_loader):
@@ -100,6 +101,11 @@ class Trainer(BaseTrainer):
 
                 output = self.model(data)
                 metrics['loss'].append(self.loss_function(output, target).item())
+
+                if self.accumulative_metrics:
+                    acc = (output.argmax(dim=1) == target).cpu().detach().type(torch.float32)
+                    accuml.extend(list(acc))
+
 
                 for key, metric in self.metric_ftns.items():
                     if self.metrics_is_dict:
@@ -109,6 +115,9 @@ class Trainer(BaseTrainer):
 
                 if batch_idx*self.batch_size >= self.val_images_pr_iteration and self.iterative:
                     break
+
+        if self.accumulative_metrics:
+            metrics['accuracy'].append(float(np.mean(accuml)))
 
         return metrics
 
