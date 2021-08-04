@@ -1,9 +1,9 @@
 from testing.data_loader import train_loader, test_loader
 from testing import config
-from babyjesus.trainer.trainer import Trainer
-from babyjesus.models.efficientnet import EfficientNet
-from babyjesus.essentials.multi_loss import MultiLoss
-from babyjesus.essentials.multi_metric import MultiMetric
+from crainets.trainer.trainer import Trainer
+from crainets.models.efficientnet import EfficientNet
+from crainets.essentials.multi_loss import MultiLoss
+from crainets.essentials.multi_metric import MultiMetric
 
 from collections.abc import Iterable
 import torch
@@ -16,7 +16,7 @@ def test_efficientnet():
     assert isinstance(config.TRAIN_CONFIG, dict)
 
     # specifiy the nec config
-    model = EfficientNet.from_name(in_channels=3, model_name='efficientnet-c16')
+    model = EfficientNet.from_name(in_channels=3, num_classes=10, model_name='efficientnet-b0')
     loss = [(1, torch.nn.CrossEntropyLoss())]
     loss = MultiLoss(losses=loss)
 
@@ -30,7 +30,8 @@ def test_efficientnet():
         config=config.TRAIN_CONFIG,
         data_loader=train_loader,
         valid_data_loader=test_loader,
-        seed=666
+        seed=666,
+        accumulative_metrics=True
     )
 
     trainer.train()
