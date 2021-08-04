@@ -37,23 +37,23 @@ jobs:
 deploy:
   needs: build
   runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.9
-      - name: install poetry
-        uses: abatilo/actions-poetry@v2.0.0
-        with:
-          poetry-version: 1.1.4
-      - name: Install the project
-        run: |
-          poetry install
-      - name: publish
-        if: github.event_name == 'push'
-        env:
-          PYPI_TOKEN: ${{ secrets.PYPITOKEN }}
-        run: |
-          poetry config pypi-token.pypi $PYPI_TOKEN
-          poetry publish --build
+  steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+    - name: install poetry
+      uses: abatilo/actions-poetry@v2.0.0
+      with:
+        poetry-version: 1.1.4
+    - name: Install the project
+      run: |
+        poetry install
+    - name: publish
+      if: github.event_name == 'push'
+      env:
+        PYPI_TOKEN: ${{ secrets.PYPITOKEN }}
+      run: |
+        poetry config pypi-token.pypi $PYPI_TOKEN
+        poetry publish --build
