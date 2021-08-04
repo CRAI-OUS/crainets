@@ -1,4 +1,4 @@
-name: babyjesus 
+name: crai-nets 
 
 on:
   push:
@@ -7,6 +7,7 @@ on:
   pull_request:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   build:
@@ -33,7 +34,24 @@ jobs:
       - name: Test with pytest
         run: |
           poetry run pytest -s
-      - name: Publish
+deploy:
+  needs: build
+  runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - name: install poetry
+        uses: abatilo/actions-poetry@v2.0.0
+        with:
+          poetry-version: 1.1.4
+      - name: Install the project
+        run: |
+          poetry install
+      - name: publish
+        if: github.event_name == 'push'
         env:
           PYPI_TOKEN: ${{ secrets.PYPITOKEN }}
         run: |
