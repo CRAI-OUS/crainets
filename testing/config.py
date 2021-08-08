@@ -29,11 +29,11 @@ TRAIN_CONFIG = {
                 }
             },
             "trainer": {
-                "epochs": 20,
+                "epochs": 2,
                 "iterative": False,
-                "iterations": 50,
-                "images_pr_iteration": 10000,
-                "val_images_pr_iteration": 1000,
+                "iterations": 5,
+                "images_pr_iteration": 100,
+                "val_images_pr_iteration": 10,
                 "save_dir": CHCKPT,
                 "save_period": 5,
                 "early_stop": 1
