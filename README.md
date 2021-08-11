@@ -51,12 +51,12 @@ transform_test = torchvision.transforms.Compose(
 
 
 train = torchvision.datasets.CIFAR10(
-                    config.TESTING, train=True, download=True,
+                    config.DATA_PATH, train=True, download=True,
                     transform=transform)
 
 
 test = torchvision.datasets.CIFAR10(
-                    config.TESTING, train=False, download=True,
+                    config.DATA_PATH, train=False, download=True,
                     transform=transform_test)
 
 train_loader = torch.utils.data.DataLoader(
