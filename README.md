@@ -160,3 +160,5 @@ trainer = Trainer(
 # Gut gut! Now run the network training und zmile!
 trainer.train()
 ```
+
+###### The project is mainly developed and maintained by CRAI at the university hospital of Oslo
