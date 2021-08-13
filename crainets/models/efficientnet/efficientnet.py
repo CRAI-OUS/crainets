@@ -1,10 +1,14 @@
+"""
+Copyright (c) 2021, CRAI
+All rights reserved.
+
+This source code is licensed under the BSD-style license found in the
+LICENSE file in the root directory of this source tree.
+"""
+
 from typing import List
 from copy import deepcopy
-
-import torch
 from torch import nn
-from torch.nn import functional as F
-
 from ..blocks.utils.conv_pad import Conv2dDynamicSamePadding
 
 from crainets.models.efficientnet.utils import (
@@ -27,8 +31,10 @@ from .config import (
 
 
 class EfficientNet(nn.Module):
+    # TODO! make a more inforamtive docstring
     """EfficientNet model.
        Most easily loaded with the .from_name or .from_pretrained methods.
+       Waiting for more information
     Args:
         blocks_args (list[namedtuple]): A list of BlockArgs to construct blocks.
         global_params (namedtuple): A set of GlobalParams shared between blocks.
@@ -183,6 +189,7 @@ class EfficientNet(nn.Module):
         in_channels: int = 3,
         ):
         """
+        docstring please...
         """
         assert model_name in VALID_MODELS, f'the model: {model_name} not found'
 

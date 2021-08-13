@@ -1,15 +1,18 @@
 """
-Squeeze and Excitation block
+Copyright (c) 2021, CRAI
+All rights reserved.
+
+This source code is licensed under the BSD-style license found in the
+LICENSE file in the root directory of this source tree.
 """
+
 import torch
 from torch import nn
 
 
 class SqueezeExcitation(nn.Module):
     """
-    Squeeze and excitation block based on:
-    https://arxiv.org/abs/1709.01507
-    ratio set at 1./16 as recommended by the paper
+    Waiting for proper docstring...
     """
 
     def __init__(self,

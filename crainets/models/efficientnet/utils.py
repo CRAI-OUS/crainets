@@ -1,18 +1,13 @@
-"""utils.py - Helper functions for building the model and for loading model parameters.
-   These helper functions are built to mirror those in the official TensorFlow implementation.
+"""
+Copyright (c) 2021, CRAI
+All rights reserved.
+
+This source code is licensed under the BSD-style license found in the
+LICENSE file in the root directory of this source tree.
 """
 
-# Author: lukemelas (github username)
-# Github repo: https://github.com/lukemelas/EfficientNet-PyTorch
-# With adjustments and added comments by workingcoder (github username).
-
-import re
 import math
-import collections
-from functools import partial
-import torch
-from torch import nn
-from torch.nn import functional as F
+
 
 def round_filters(filters, global_params):
     """Calculate and round number of filters based on width multiplier.
@@ -32,12 +27,13 @@ def round_filters(filters, global_params):
     divisor = global_params.depth_divisor
     min_depth = global_params.min_depth
     filters *= multiplier
-    min_depth = min_depth or divisor # pay attention to this line when using min_depth
+    min_depth = min_depth or divisor   # pay attention to this line when using min_depth
     # follow the formula transferred from official TensorFlow implementation
     new_filters = max(min_depth, int(filters + divisor / 2) // divisor * divisor)
-    if new_filters < 0.9 * filters: # prevent rounding by more than 10%
+    if new_filters < 0.9 * filters:    # prevent rounding by more than 10%
         new_filters += divisor
     return int(new_filters)
+
 
 def round_repeats(repeats, global_params):
     """Calculate module's repeat number of a block based on depth multiplier.
@@ -53,6 +49,22 @@ def round_repeats(repeats, global_params):
         return repeats
     # follow the formula transferred from official TensorFlow implementation
     return int(math.ceil(multiplier * repeats))
+
+
+def get_width_and_height_from_size(x):
+    """Obtain height and width from x.
+    Args:
+        x (int, tuple or list): Data size.
+    Returns:
+        size: A tuple or list (H,W).
+    """
+    if isinstance(x, int):
+        return x, x
+    if isinstance(x, list) or isinstance(x, tuple):
+        return x
+    else:
+        raise TypeError()
+
 
 def calculate_output_image_size(input_image_size, stride):
     """Calculates the output image size when using Conv2dSamePadding with a stride.
@@ -70,4 +82,3 @@ def calculate_output_image_size(input_image_size, stride):
     image_height = int(math.ceil(image_height / stride))
     image_width = int(math.ceil(image_width / stride))
     return [image_height, image_width]
-

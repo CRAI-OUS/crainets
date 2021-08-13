@@ -1,3 +1,11 @@
+"""
+Copyright (c) 2021, CRAI
+All rights reserved.
+
+This source code is licensed under the BSD-style license found in the
+LICENSE file in the root directory of this source tree.
+"""
+
 # External standard modules
 from typing import Union, Tuple
 
@@ -16,6 +24,7 @@ from .utils.utils import (
 
 
 class MBConvBlock(nn.Module):
+    # NOTE! stick to one docstring style and make them more informative
     """Mobile Inverted Residual Bottleneck Block.
     Args:
         block_args (namedtuple): BlockArgs, defined in utils.py.

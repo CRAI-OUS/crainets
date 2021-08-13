@@ -1,12 +1,19 @@
+"""
+Copyright (c) 2021, CRAI
+All rights reserved.
+
+This source code is licensed under the BSD-style license found in the
+LICENSE file in the root directory of this source tree.
+"""
+
 from typing import Union, Tuple
 import math
 from functools import partial
 
-import torch
 from torch import nn
 from torch.nn import functional as F
 
-# Note:
+# NOTE!
 # The following 'SamePadding' functions make output size equal ceil(input size/stride).
 # Only when stride equals 1, can the output size be the same as input size.
 # Don't be confused by their function names!!!
@@ -29,7 +36,7 @@ class Conv2dDynamicSamePadding(nn.Conv2d):
     """2D Convolutions like TensorFlow, for a dynamic image size.
        The padding is operated in forward function by calculating dynamically.
     """
-
+    # NOTE! put this in the docstring as an example?
     # Tips for 'SAME' mode padding.
     #     Given the following:
     #         i: width or height

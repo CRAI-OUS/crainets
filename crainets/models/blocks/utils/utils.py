@@ -1,23 +1,14 @@
-"""utils.py - Helper functions for building the model and for loading model parameters.
-   These helper functions are built to mirror those in the official TensorFlow implementation.
+"""
+Copyright (c) 2021, CRAI
+All rights reserved.
+
+This source code is licensed under the BSD-style license found in the
+LICENSE file in the root directory of this source tree.
 """
 
-# Author: lukemelas (github username)
-# Github repo: https://github.com/lukemelas/EfficientNet-PyTorch
-# With adjustments and added comments by workingcoder (github username).
-
-import re
 import math
-import collections
-from functools import partial
 import torch
-from torch import nn
-from torch.nn import functional as F
 
-
-################################################################################
-### Help functions for model architecture
-################################################################################
 
 # GlobalParams and BlockArgs: Two namedtuples
 # Swish and MemoryEfficientSwish: Two implementations of the method

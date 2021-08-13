@@ -1,3 +1,11 @@
+"""
+Copyright (c) 2021, CRAI
+All rights reserved.
+
+This source code is licensed under the BSD-style license found in the
+LICENSE file in the root directory of this source tree.
+"""
+
 # Standard modules
 import json
 from pathlib import Path
@@ -17,9 +25,7 @@ class MetricTracker(object):
     VALIDATION_KEY = 'validation'
     CONFIG_KEY = 'config'
 
-    def __init__(self,
-                 config: dict
-                ):
+    def __init__(self, config: dict):
         """
         Args:
             config (dict): The config dict which initiates the network

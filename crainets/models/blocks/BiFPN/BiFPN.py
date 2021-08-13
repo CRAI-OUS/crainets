@@ -1,8 +1,15 @@
-from typing import List, Optional, Callable, Union, Tuple
+"""
+Copyright (c) 2021, CRAI
+All rights reserved.
+
+This source code is licensed under the BSD-style license found in the
+LICENSE file in the root directory of this source tree.
+"""
+
+from typing import List, Union, Tuple
 
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
 
 from ..swish import MemoryEfficientSwish, Swish
 from ..utils import Conv2dDynamicSamePadding
@@ -10,8 +17,7 @@ from ..utils import Conv2dDynamicSamePadding
 
 class SeparableConvBlock(nn.Module):
     """
-    created by Zylo117 modified by JonOttesen
-    Source: https://github.com/zylo117/Yet-Another-EfficientDet-Pytorch
+    wating for proper doctstring...
     """
 
     def __init__(self,

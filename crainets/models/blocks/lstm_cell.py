@@ -1,3 +1,11 @@
+"""
+Copyright (c) 2021, CRAI
+All rights reserved.
+
+This source code is licensed under the BSD-style license found in the
+LICENSE file in the root directory of this source tree.
+"""
+
 import torch.nn as nn
 import torch
 
@@ -10,6 +18,7 @@ class ConvLSTMCell(nn.Module):
                  kernel_size: int = 3,
                  bias: bool = True,
                  ):
+        # NOTE! not very informative docstring
         """
         Original repository: https://github.com/ndrplz/ConvLSTM_pytorch
         Minor adjustments has been done for readability

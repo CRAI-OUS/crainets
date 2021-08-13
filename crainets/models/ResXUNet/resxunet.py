@@ -1,9 +1,16 @@
+"""
+Copyright (c) 2021, CRAI
+All rights reserved.
+
+This source code is licensed under the BSD-style license found in the
+LICENSE file in the root directory of this source tree.
+"""
+
 # External standard modules
 from typing import Union
 
 # External third party modules
 import torch
-import torch.nn.functional as F
 import torch.nn as nn
 
 # Internal modules
@@ -12,7 +19,11 @@ from ..blocks import (
     Bottleneck,
     )
 
+
 class ResXUNet(nn.Module):
+    """
+    Waiting for docstring...
+    """
 
     def __init__(self,
                  n_channels: int,

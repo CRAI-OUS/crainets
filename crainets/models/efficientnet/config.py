@@ -1,5 +1,13 @@
+"""
+Copyright (c) 2021, CRAI
+All rights reserved.
+
+This source code is licensed under the BSD-style license found in the
+LICENSE file in the root directory of this source tree.
+"""
+
 from dataclasses import dataclass
-from typing import Union, List, Tuple
+from typing import Union, Tuple
 
 
 @dataclass
@@ -12,6 +20,7 @@ class BlockArgs:
     output_filters: int
     se_ratio: Union[float, None] = 1./4
     id_skip: bool = True
+
 
 # Efficientnet blocks
 blocks = [
@@ -73,13 +82,14 @@ blocks = [
     ),
     ]
 
-#NOTE! breach of DRY principle
+# NOTE! breach of DRY principle
 VALID_MODELS = (
     'efficientnet-b0', 'efficientnet-b1', 'efficientnet-b2',
     'efficientnet-b3', 'efficientnet-b4', 'efficientnet-b5',
     'efficientnet-b6', 'efficientnet-b7', 'efficientnet-b8',
     'efficientnet-l2',
 )
+
 
 @dataclass
 class GlobalParams:
@@ -102,7 +112,7 @@ def efficientnet_params(model_name):
     Returns:
         params_dict[model_name]: A (width,depth,res,dropout) tuple.
     """
-    #TODO: make this more dynamic for the enduser by letting it shift with a efficientnet-config file
+    # TODO: make this more dynamic for the enduser by letting it shift with a efficientnet-config file
     params_dict = {
         'efficientnet-b0':
             {'width_coefficient': 1.0, 'depth_coefficient': 1.0, 'resolution': 224, 'drop_connect_rate': 0.2},

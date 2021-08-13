@@ -1,3 +1,11 @@
+"""
+Copyright (c) 2021, CRAI
+All rights reserved.
+
+This source code is licensed under the BSD-style license found in the
+LICENSE file in the root directory of this source tree.
+"""
+
 # External third party modules
 import torch.nn as nn
 
@@ -6,6 +14,7 @@ from .unet_blocks import DoubleConv, UpConv, DownConv, OutConv
 
 
 class UNet(nn.Module):
+    """Waiting for docstring"""
 
     def __init__(self,
                  n_channels: int,
@@ -33,7 +42,6 @@ class UNet(nn.Module):
         self.up3 = UpConv(4*n, 2*n // factor, bilinear, norm=norm)
         self.up4 = UpConv(2*n, n, bilinear, norm=norm)
         self.outc = OutConv(n, n_classes)
-
 
     def forward(self, x):
 

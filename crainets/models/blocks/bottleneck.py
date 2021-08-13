@@ -1,3 +1,11 @@
+"""
+Copyright (c) 2021, CRAI
+All rights reserved.
+
+This source code is licensed under the BSD-style license found in the
+LICENSE file in the root directory of this source tree.
+"""
+
 # External standard modules
 from typing import Optional, Callable, Union
 
@@ -8,12 +16,10 @@ import torch.nn as nn
 # Internal modules
 from .squeeze_excitation import SqueezeExcitation
 
+
 class Bottleneck(nn.Module):
     """
-    Original paper:
-    https://openaccess.thecvf.com/content_cvpr_2016/papers/He_Deep_Residual_Learning_CVPR_2016_paper.pdf
-    Inspiration from:
-    https://github.com/pytorch/vision/blob/master/torchvision/models/resnet.py
+    Waiting for proper docstring...
     """
 
     def __init__(self,
