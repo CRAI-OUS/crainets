@@ -3,6 +3,8 @@ name = "crainets"
 version = "0.1.1-beta"
 description = "deep learning utility library"
 authors = ["JonNesvold <jon.nesvold@pm.me>"]
+license = 'LICENSE.md'
+readme = 'README.md'
 
 [tool.poetry.dependencies]
 python = "^3.8"
