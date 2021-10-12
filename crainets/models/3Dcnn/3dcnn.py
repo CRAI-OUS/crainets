@@ -6,7 +6,6 @@ Created on Tue Aug 24 12:08:10 2021
 @author: lidia
 """
 """Adapted from https://github.com/jphdotam/Unet3D"""
-from typings import Tuple
 import torch.nn as nn
 
 
@@ -45,11 +44,10 @@ class UNet(nn.Module):
         x = self.down3(x)
         x = self.down4(x)
         x = self.down5(x)
-        x = x.view(1,-1)    # flatten
+        x = x.flatten()    
         out = self.fc(x)
 
         return out
-    
 
 class DoubleConv(nn.Module):
     """(convolution => [BN] => ReLU) * 2"""
