@@ -9,7 +9,7 @@ Created on Tue Aug 24 12:08:10 2021
 import torch.nn as nn
 
 
-class UNet(nn.Module):
+class 3Dcnn(nn.Module):
     def __init__(self, n_channels, width_multiplier=1, use_ds_conv=False):
         """A simple 3D CNN + fully connected layer for classification. Adapted 
         from a 3D Unet from https://github.com/jphdotam/Unet3D
