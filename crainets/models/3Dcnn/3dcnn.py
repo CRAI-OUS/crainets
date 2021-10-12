@@ -4,8 +4,9 @@
 Created on Tue Aug 24 12:08:10 2021
 
 @author: lidia
+
+Adapted from https://github.com/jphdotam/Unet3D
 """
-"""Adapted from https://github.com/jphdotam/Unet3D"""
 import torch.nn as nn
 
 
