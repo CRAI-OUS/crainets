@@ -10,7 +10,7 @@ Adapted from https://github.com/jphdotam/Unet3D
 import torch.nn as nn
 
 
-class 3Dcnn(nn.Module):
+class cnn3D(nn.Module):
     def __init__(self, n_channels, width_multiplier=1, use_ds_conv=False):
         """A simple 3D CNN + fully connected layer for classification. Adapted 
         from a 3D Unet from https://github.com/jphdotam/Unet3D
@@ -22,13 +22,13 @@ class 3Dcnn(nn.Module):
           use_ds_conv = if True, we use depthwise-separable convolutional layers. in my experience, this is of little help. This
                   appears to be because with 3D data, the vast majority of GPU RAM is the input data/labels, not the params, so little
                   VRAM is saved by using ds_conv, and yet performance suffers."""
-        super(UNet, self).__init__()
+        super(cnn3D, self).__init__()
         _channels = (32, 64, 128, 256, 512)
         self.n_channels = n_channels
         self.channels = [int(c*width_multiplier) for c in _channels]
         self.convtype = DepthwiseSeparableConv3d if use_ds_conv else nn.Conv3d
-        self.in_fc = None # Is it possible to get from x? Otherwise must be argument?
-        self.out_fc = self.channels[4]
+        self.in_fc = self.channels[4]
+        self.out_fc = 2
 
         self.inc = DoubleConv(n_channels, self.channels[0], conv_type=self.convtype)
         self.down1 = Down(self.channels[0], self.channels[1], conv_type=self.convtype)
