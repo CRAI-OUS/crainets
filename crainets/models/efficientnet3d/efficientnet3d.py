@@ -10,18 +10,18 @@ from typing import List
 from copy import deepcopy
 import torch
 from torch import nn
-from utils.conv_pad import Conv3dDynamicSamePadding
+from .utils.conv_pad import Conv3dDynamicSamePadding
 
-from utils import (
+from .utils import (
     round_filters,
     round_repeats,
 )
 
-from mbconvblock3d import (
+from .mbconvblock3d import (
     MBConvBlock3D,
     )
 
-from config import (
+from .config import (
     BlockArgs,
     GlobalParams,
     VALID_MODELS,
@@ -207,9 +207,3 @@ class EfficientNet3D(nn.Module):
             blocks_args=blocks_args,
             global_params=global_params,
             )
-
-if __name__ == '__main__':
-    model = EfficientNet3D.from_name(model_name='efficientnet-b0', num_classes=3, in_channels=3)
-    a = torch.rand((2, 3, 128, 128, 128))
-    out = model(a)
-    print(out.shape)

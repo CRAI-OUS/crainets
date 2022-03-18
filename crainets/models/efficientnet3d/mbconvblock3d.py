@@ -16,8 +16,8 @@ import torch.nn.functional as F
 
 # Internal modules
 
-from utils.conv_pad import Conv3dDynamicSamePadding
-from utils.utils import (
+from .utils.conv_pad import Conv3dDynamicSamePadding
+from .utils.utils import (
     drop_connect,
 )
 
