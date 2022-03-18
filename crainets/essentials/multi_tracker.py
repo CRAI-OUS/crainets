@@ -117,6 +117,12 @@ class MetricTracker(object):
         return self.results[self.VALIDATION_KEY][epoch]
 
     def plot(self, show: bool = True, save_path: Optional[Union[str, Path]] = None):
+        """Plot validation and training losses
+
+        Args:
+            show (bool, optional): Whether to show the plot or not. Defaults to True.
+            save_path (Optional[Union[str, Path]], optional): The path where the training and validation plots are shown. Defaults to None.
+        """
         train = self.training()
         valid = self.validation()
         training = list()
