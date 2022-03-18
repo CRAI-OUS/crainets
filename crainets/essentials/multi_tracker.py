@@ -9,7 +9,11 @@ LICENSE file in the root directory of this source tree.
 # Standard modules
 import json
 from pathlib import Path
-from typing import Union, Dict
+from typing import Union, Dict, Tuple, Optional
+
+# External modules
+import numpy as np
+import matplotlib.pyplot as plt
 
 # Internal modules
 from crainets.config.logger import get_logger
@@ -112,6 +116,42 @@ class MetricTracker(object):
     def validation_metric(self, epoch):
         return self.results[self.VALIDATION_KEY][epoch]
 
+    def plot(self, show: bool = True, save_path: Optional[Union[str, Path]] = None):
+        train = self.training()
+        valid = self.validation()
+        training = list()
+        validation = list()
+        x = np.arange(len(train.items()))
+
+        for k, (i, j) in enumerate(train.items()):
+            training.append(np.mean(np.array(j['loss'])))
+
+        for k, (i, j) in enumerate(valid.items()):
+            validation.append(np.mean(np.array(j['loss'])))
+
+        cm = 1/2.54
+        w = 17.6
+        fig, ax = plt.subplots(figsize=(w*cm, 2*w/3*cm))
+        plt.title("Validation and training loss")
+        ax.plot(x, training, color='red', label='Train', linestyle='dashed', marker='x')
+        ax.plot(x, validation, color='blue', label='Valid', linestyle='dashed', marker='x')
+
+        ax.set_xlabel('Epoch', size=10)
+        ax.set_ylabel('Loss', size=10)
+        ax.legend(fontsize=10)
+        plt.grid(which='major', alpha=0.25)
+        if save_path is not None:
+            plt.savefig(save_path,
+                transparent=True,
+                pad_inches=0,
+                bbox_inches='tight',
+                dpi=1200,
+                )
+        if show:
+            plt.show()
+        else:
+            plt.close()
+
     def write_to_file(self, path: Union[str, Path]):
         """
         Writes MetricTracker to file
@@ -135,3 +175,4 @@ class MetricTracker(object):
         metrics = cls(config=prev[cls.CONFIG_KEY])
         metrics.resume(path)
         return metrics
+
