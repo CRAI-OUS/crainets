@@ -274,8 +274,10 @@ class BaseTrainer:
         save_path.mkdir(parents=True, exist_ok=True)
 
         statics_save_path = save_path / Path('statistics.json')
+        plot_save_path = save_path / Path('train_valid_loss.tif')
 
         self.metric.write_to_file(path=statics_save_path)  # Save for every checkpoint in case of crash
+        self.metric.plot(show=False, save_path=plot_save_path)
         torch.save(state, filename)
         self.logger.info(f'Saving checkpoint: {filename} ...')
 
